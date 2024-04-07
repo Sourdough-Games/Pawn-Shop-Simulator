@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 157cd422d13b8bb479076cfa4606a320, type: 3}
-  m_Name: Phone
+  m_Name: Cell Phone
   m_EditorClassIdentifier: 
   prefab: {fileID: 4311420760543535419, guid: cb81ff8c03a43374e86fc4b0cec881fd, type: 3}
-  ProductName: Phone
+  ProductName: Cell Phone
+  LocalizationKey: CellPhone
   baseCost: 643
   productType: 1
   productSize: 0

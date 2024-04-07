@@ -69,7 +69,7 @@ public class Product : MonoBehaviour, IHoldable
 
     public void PickUp()
     {
-        if(Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this)) {
+        if (Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this)) {
             isHeld = true;
         }
     }
@@ -104,13 +104,15 @@ public class Product : MonoBehaviour, IHoldable
 
     public void ToggleHighlight(bool on)
     {
-        highlight.enabled = on;
-
-        if(on) {
+        if (on)
+        {
             LookAtProductCanvas.Show();
-        } else {
+        }
+        else
+        {
             LookAtProductCanvas.Hide();
         }
+        highlight.enabled = on;
     }
 
     public ProductSize GetProductSize()
@@ -131,5 +133,10 @@ public class Product : MonoBehaviour, IHoldable
     public bool CanBeSlottedVertically()
     {
         return Data.CanBeSlottedVertically;
+    }
+
+    public void ToggleWorldspaceUI(bool on)
+    {
+        LookAtProductCanvas.gameObject.SetActive(on);
     }
 }

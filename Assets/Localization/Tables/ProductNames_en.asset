@@ -26,6 +26,10 @@ MonoBehaviour:
     m_Localized: Cell Phone
     m_Metadata:
       m_Items: []
+  - m_Id: 5398008807424
+    m_Localized: Washing Machine
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

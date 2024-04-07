@@ -35,6 +35,10 @@ MonoBehaviour:
     m_Key: SizeLarge
     m_Metadata:
       m_Items: []
+  - m_Id: 11796516028416
+    m_Key: TypeAppliance
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

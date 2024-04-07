@@ -38,6 +38,10 @@ MonoBehaviour:
     m_Localized: Large
     m_Metadata:
       m_Items: []
+  - m_Id: 11796516028416
+    m_Localized: Appliance
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

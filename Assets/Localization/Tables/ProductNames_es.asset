@@ -26,6 +26,10 @@ MonoBehaviour:
     m_Localized: "Tel\xE9fono Celular"
     m_Metadata:
       m_Items: []
+  - m_Id: 5398008807424
+    m_Localized: Lavadora
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

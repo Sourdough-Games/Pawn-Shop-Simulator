@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 public enum ProductType
 {
     Art,
-    Electronics
+    Electronics,
+    Appliance
 }
 public enum ProductQuality
 {

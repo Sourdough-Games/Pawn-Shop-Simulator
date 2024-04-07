@@ -9,6 +9,7 @@ public static class Helper
         obj.layer = newLayer;
         foreach (Transform child in obj.transform)
         {
+            if(child.GetComponent<Canvas>() != null) continue;
             SetLayerRecursively(child.gameObject, newLayer);
         }
     }

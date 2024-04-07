@@ -9,6 +9,8 @@ public class ProductSO : ScriptableObject
 
     public string ProductName;
 
+    public string LocalizationKey;
+
     public float baseCost;
 
     public ProductType productType;

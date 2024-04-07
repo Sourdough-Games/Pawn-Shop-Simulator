@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 7260139224164418596, guid: ed277b14c8f7d9c44b4b0615dcfae486, type: 3}
   ProductName: Painting
+  LocalizationKey: Painting
   baseCost: 156
   productType: 0
   productSize: 1

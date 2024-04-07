@@ -8,6 +8,8 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
     [SerializeField] private Transform holdPosition;
     [SerializeField] private ProductWorldCanvas screenSpaceCanvas;
 
+    [SerializeField] private AudioSource pickupSound;
+
     public float reachDistance;
 
     private int holdLayer;
@@ -48,8 +50,11 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
     public bool TryPickupHoldable(IHoldable holdable)
     {
-        if (heldObject != null) return false;
-
+        if(holdable == null) return false; //nothing to pick up
+        if (heldObject != null) {
+            Singleton<NotificationSystem>.Instance.ShowMessage("HolderAlreadyHolding");
+            return false;
+        }
 
         holdable.ToggleWorldspaceUI(false);
         PickupHoldable(holdable);
@@ -80,6 +85,8 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
         HeldTransform.localPosition = HandPosition.Position;
         HeldTransform.localRotation = Quaternion.Euler(HandPosition.Rotation);
+
+        pickupSound.Play();
 
         Helper.SetLayerRecursively(HeldTransform.gameObject, holdLayer);
 

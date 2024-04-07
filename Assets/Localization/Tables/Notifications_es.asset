@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Notifications_es
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: c32802a520352e841b01f8edc7599120, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 893909319680
+    m_Localized: Ya hay un producto en ese escaparate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1078618079232
+    m_Localized: "El producto no es del tama\xF1o adecuado para ese escaparate"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157533908992
+    m_Localized: Este producto no se puede colocar en escaparates verticales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1312890929152
+    m_Localized: "Ya est\xE1s sujetando un objeto"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -324,10 +324,6 @@ PrefabInstance:
       value: LargeProductSlot
       objectReference: {fileID: 0}
     - target: {fileID: 5701559733163225528, guid: c5cece06dd8b14f498df54e43b40356c, type: 3}
-      propertyPath: allowedSizes.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5701559733163225528, guid: c5cece06dd8b14f498df54e43b40356c, type: 3}
       propertyPath: allowedSizes.Array.data[1]
       value: 0
       objectReference: {fileID: 0}

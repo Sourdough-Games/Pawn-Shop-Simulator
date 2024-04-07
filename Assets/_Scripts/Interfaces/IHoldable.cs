@@ -19,4 +19,6 @@ public interface IHoldable
     ProductPositionData GetHandPositionData();
 
     bool CanBeSlottedVertically();
+
+    void ToggleWorldspaceUI(bool on);
 }

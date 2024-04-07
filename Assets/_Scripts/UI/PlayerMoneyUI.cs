@@ -18,14 +18,8 @@ public class PlayerMoneyUI : MonoBehaviour
         moneyManager.WalletAmountChanged.AddListener(OnWalletAmountChanged);
     }
 
-    private void OnWalletAmountChanged(double new_amount)
+    private void OnWalletAmountChanged(float new_amount)
     {
-        moneyAmountText.text = $"${new_amount:C}";
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        moneyAmountText.text = Helper.ConvertToDollarAmount((float)new_amount);
     }
 }

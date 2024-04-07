@@ -5,17 +5,17 @@ using UnityEngine.Events;
 
 public class PlayerMoneyManager : Singleton<PlayerMoneyManager>
 {
-    public UnityEvent<double> WalletAmountChanged;
+    public UnityEvent<float> WalletAmountChanged;
 
-    [SerializeField] private double walletAmount = 0.00;
+    [SerializeField] private float walletAmount = 0.00f;
 
-    public double WalletAmount {
+    public float WalletAmount {
         get {
             return walletAmount;
         }
     }
 
-    public bool TryTakeMoney(double amount) {
+    public bool TryTakeMoney(float amount) {
         if(walletAmount < amount) {
             return false;
         }
@@ -24,18 +24,18 @@ public class PlayerMoneyManager : Singleton<PlayerMoneyManager>
         return true;
     }
 
-    public bool TryAddMoney(double amount) {
+    public bool TryAddMoney(float amount) {
         AddMoney(amount);
         return true;
     }
 
-    private void TakeMoney(double amount) {
+    public void TakeMoney(float amount) {
         walletAmount -= amount;
 
         WalletAmountChanged?.Invoke(WalletAmount);
     }
 
-    private void AddMoney(double amount) {
+    public void AddMoney(float amount) {
         walletAmount += amount;
         
         WalletAmountChanged?.Invoke(WalletAmount);

@@ -31,6 +31,8 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
     private void Start()
     {
         holdLayer = LayerMask.NameToLayer("HoldLayer");
+
+        screenSpaceCanvas.Hide();
     }
 
     void Update() {

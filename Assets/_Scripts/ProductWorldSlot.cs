@@ -34,12 +34,15 @@ public class ProductWorldSlot : MonoBehaviour
     public bool TryInsertProduct(Product product) {
         if(product == null) return false;
         if(ProductInSlot != null) {
+            Singleton<NotificationSystem>.Instance.ShowMessage("ProductAlreadyInSlot");
             return false;
         }
         if(!allowedSizes.Contains(product.ProductData.productSize)) {
+            Singleton<NotificationSystem>.Instance.ShowMessage("ProductIncorrectSlotSize");
             return false;
         }
         if(!product.ProductData.CanBeSlottedVertically && IsVertical) {
+            Singleton<NotificationSystem>.Instance.ShowMessage("ProductCantBeVertical");
             return false;
         }
 
@@ -82,15 +85,6 @@ public class ProductWorldSlot : MonoBehaviour
         }
     }
 
-    public bool CanTakeProduct
-    {
-        get
-        {
-            PlayerObjectHolder holder = Singleton<PlayerObjectHolder>.Instance;
-            return holder != null && ProductInSlot != null && holder.CurrentHoldable == null;
-        }
-    }
-
     bool PlayerIsWithinDistance
     {
         get
@@ -104,9 +98,9 @@ public class ProductWorldSlot : MonoBehaviour
     {
         if(!PlayerIsWithinDistance) return;
 
-        if(IsValidProductPlacement) {
+        if(ProductInSlot == null) {
             outline.enabled = true;
-        } else if (CanTakeProduct) {
+        } else {
             ProductInSlot.ToggleHighlight(true);
         }
     }
@@ -126,13 +120,12 @@ public class ProductWorldSlot : MonoBehaviour
 
         PlayerObjectHolder holder = Singleton<PlayerObjectHolder>.Instance;
 
-        if (IsValidProductPlacement) {
+        if (ProductInSlot == null && holder.CurrentHoldable != null) {
             if(holder.CurrentHoldable.PlaceIntoWorldSlot(this)) {
                 ProductInSlot.ToggleHighlight(true);
                 outline.enabled = false;
             }
-        } else if (CanTakeProduct)
-        {
+        } else {
             if (holder.TryPickupHoldable(ProductInSlot))
             {
                 ProductInSlot.ToggleHighlight(false);

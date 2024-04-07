@@ -23,5 +23,5 @@ MonoBehaviour:
     Rotation: {x: 0, y: 0, z: 0}
   HandSlotPositionData:
     Position: {x: 0, y: 0.25, z: -0.15}
-    Rotation: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 180, z: 0}
   CanBeSlottedVertically: 1

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Product : MonoBehaviour, IHoldable
 {
+    [SerializeField] private ProductWorldCanvas LookAtProductCanvas;
     [SerializeField] private ProductSO Data;
 
     public float maxDistance {
@@ -54,6 +55,11 @@ public class Product : MonoBehaviour, IHoldable
     void Start() {
         highlight = GetComponent<Outline>();
         ToggleHighlight(false);
+
+        FaceTarget ft = LookAtProductCanvas.gameObject.AddComponent<FaceTarget>();
+        ft.target = Singleton<PlayerObjectHolder>.Instance.transform;
+        LookAtProductCanvas.Hide();
+        LookAtProductCanvas.Setup(Data);
     }
 
     public void Drop()
@@ -63,8 +69,9 @@ public class Product : MonoBehaviour, IHoldable
 
     public void PickUp()
     {
-        if(Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this))
+        if (Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this)) {
             isHeld = true;
+        }
     }
 
     void OnMouseDown() {
@@ -97,6 +104,14 @@ public class Product : MonoBehaviour, IHoldable
 
     public void ToggleHighlight(bool on)
     {
+        if (on)
+        {
+            LookAtProductCanvas.Show();
+        }
+        else
+        {
+            LookAtProductCanvas.Hide();
+        }
         highlight.enabled = on;
     }
 
@@ -118,5 +133,10 @@ public class Product : MonoBehaviour, IHoldable
     public bool CanBeSlottedVertically()
     {
         return Data.CanBeSlottedVertically;
+    }
+
+    public void ToggleWorldspaceUI(bool on)
+    {
+        LookAtProductCanvas.gameObject.SetActive(on);
     }
 }

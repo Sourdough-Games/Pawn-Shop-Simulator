@@ -6,6 +6,7 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 {
     [SerializeField] private FirstPersonController player;
     [SerializeField] private Transform holdPosition;
+    [SerializeField] private ProductWorldCanvas screenSpaceCanvas;
 
     public float reachDistance;
 
@@ -47,6 +48,8 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
     {
         if (heldObject != null) return false;
 
+
+        holdable.ToggleWorldspaceUI(false);
         PickupHoldable(holdable);
         return true;
     }
@@ -77,13 +80,23 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         HeldTransform.localRotation = Quaternion.Euler(HandPosition.Rotation);
 
         Helper.SetLayerRecursively(HeldTransform.gameObject, holdLayer);
+
+        if(holdable is Product) {
+            screenSpaceCanvas.Setup((holdable as Product).ProductData);
+            screenSpaceCanvas.Show();
+        }
     }
 
     void ThrowHoldable(float force = 15f, float multiplier = 10)
     {
         Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();
         DropHoldable();
+        
+        Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponentInChildren<Collider>(), true);
+
         rb.AddForce(transform.forward * force * multiplier);
+
+        Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponentInChildren<Collider>(), false);
     }
 
     public void DropHoldable()
@@ -108,6 +121,8 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         heldObject = null;
 
         ReleaseZoomLockRoutine = StartCoroutine(ReleaseZoomLock());
+
+        screenSpaceCanvas.Hide();
     }
 
     void StopClipping() //function only called when dropping/throwing

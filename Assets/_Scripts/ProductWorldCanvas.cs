@@ -16,6 +16,10 @@ public class ProductWorldCanvas : MonoBehaviour
 
     public bool CanShow = true;
 
+    void Start() {
+        Hide();
+    }
+
     public void Setup(ProductSO productSO) {
         if(localizedSizeString == null)
         {

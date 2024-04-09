@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 157cd422d13b8bb479076cfa4606a320, type: 3}
   m_Name: Washing Machine
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7260139224164418596, guid: ed277b14c8f7d9c44b4b0615dcfae486, type: 3}
+  prefab: {fileID: 5720184459235649990, guid: 3f805cef9fced194189ee7e4fc118936, type: 3}
   ProductName: Washing Machine
   LocalizationKey: WashingMachine
   baseCost: 766

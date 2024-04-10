@@ -11,9 +11,15 @@ public class StorageUnit : MonoBehaviour
 
     public bool CanSpawn = false;
 
-    public void OpenUnit() {
+    public bool IsOpen {
+        get {
+            return doorAnimator.GetBool("IsOpen");
+        }
+    }
+
+    public void OpenUnit(int spawn_products = 0) {
         if (!doorAnimator.GetBool("IsOpen")) {
-            SpawnProducts();
+            SpawnProducts(spawn_products);
             doorAnimator.Play("OpenDoor");
         }
     }
@@ -24,7 +30,7 @@ public class StorageUnit : MonoBehaviour
         }
     }
 
-    private void SpawnProducts()
+    private void SpawnProducts(int limit = 15)
     {
         if (!CanSpawn)
         {
@@ -38,7 +44,7 @@ public class StorageUnit : MonoBehaviour
 
         Bounds bounds = SpawnArea.GetComponent<Collider>().bounds;
 
-        for (int i = 0; i < Random.Range(1, 15); i++)
+        for (int i = 0; i < Random.Range(1, limit); i++)
         {
             Vector3 randomPosition = Helper.GetRandomPositionWithinBounds(bounds);
             ProductSO randomProduct = products[Random.Range(0, products.Length)];

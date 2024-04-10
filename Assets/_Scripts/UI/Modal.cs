@@ -24,6 +24,10 @@ public abstract partial class Modal : MonoBehaviour, IModal
     void Update() {
         if(gameObject.activeSelf) {
             Draw();
+
+            if(Input.GetKeyDown(KeyCode.Escape)) {
+                Close();
+            }
         }
     }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class Character : MonoBehaviour
 {
@@ -20,6 +21,12 @@ public class Character : MonoBehaviour
         }
     }
 
+    void Update() {
+        if(ot.enabled && EventSystem.current.IsPointerOverGameObject() || !PlayerIsWithinDistance) {
+            ot.enabled = false;
+        }
+    }
+
     private void OnMouseDown() {
         if(PlayerIsWithinDistance) {
             CharacterClicked?.Invoke();
@@ -27,7 +34,7 @@ public class Character : MonoBehaviour
     }
 
     private void OnMouseOver() {
-        if(ot != null && PlayerIsWithinDistance) {
+        if(ot != null) {
             ot.enabled = true;
         }
     }

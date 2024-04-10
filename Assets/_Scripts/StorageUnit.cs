@@ -28,8 +28,11 @@ public class StorageUnit : MonoBehaviour
     {
         if (!CanSpawn)
         {
+            Debug.LogError("Cant Spawn Products");
             return;
         }
+
+        Debug.LogError("Spawn Products");
 
         ProductSO[] products = Singleton<ProductManager>.Instance.Products;
 

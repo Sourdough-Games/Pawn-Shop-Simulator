@@ -4,11 +4,11 @@ using UnityEngine;
 
 public static class Helper
 {
-    public static bool IsWithinPlayerReach(Transform obj) {
+    public static bool IsWithinPlayerReach(Transform obj, float additional_reach = 0) {
         PlayerObjectHolder holder = Singleton<PlayerObjectHolder>.Instance;
 
         float distance = Vector3.Distance(obj.position, holder.transform.position);
-        return distance <= holder.reachDistance;
+        return distance <= holder.reachDistance + additional_reach;
     }    
     public static void SetLayerRecursively(GameObject obj, int newLayer)
     {

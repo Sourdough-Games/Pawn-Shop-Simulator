@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ public class PurchaseStorageUnitUI : Modal
             return;
         }
 
-        StorageUnit random_unit = s.StorageUnits.Where(u => !u.IsOwned).FirstOrDefault();
+        StorageUnit random_unit = s.StorageUnits.Where(u => !u.IsOwned).OrderBy(u => Guid.NewGuid()).FirstOrDefault();
         if(random_unit != null) {
             c.ownedStorageUnits.Add(random_unit);
 

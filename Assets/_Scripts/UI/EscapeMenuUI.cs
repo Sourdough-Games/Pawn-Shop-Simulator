@@ -20,6 +20,7 @@ public class EscapeMenuUI : Modal
     public void ResetStorageUnits() {
         foreach(StorageUnit unit in Singleton<StorageUnitsManager>.Instance.StorageUnits) {
             unit.IsOwned = false;
+            unit.CanSpawn = true;
             unit.CloseUnit();
         }
 

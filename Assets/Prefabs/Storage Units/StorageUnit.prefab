@@ -105,7 +105,6 @@ MonoBehaviour:
   doorAnimator: {fileID: 7031668751064712568}
   SpawnArea: {fileID: 4859316507254963118}
   openSound: {fileID: 357743482306661830}
-  ot: {fileID: 0}
   CanSpawn: 0
   IsOwned: 0
 --- !u!82 &357743482306661830
@@ -120,7 +119,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7c253fcd47f048d4f873d43947a02af0, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0

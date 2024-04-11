@@ -20,7 +20,7 @@ public class GarageDoor : MonoBehaviour
     {
         get
         {
-            return Helper.IsWithinPlayerReach(transform);
+            return Helper.IsWithinPlayerReach(transform, 1f);
         }
     }
 

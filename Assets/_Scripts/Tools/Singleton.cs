@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : Component
@@ -9,23 +10,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
 
     public static T Instance
     {
-        get
-        {
-            // if instance is null
-            if (instance == null)
-            {
-                // find the generic instance
-                instance = FindObjectOfType<T>();
-
-                // if it's null again create a new object
-                // and attach the generic instance
-                if (instance == null)
-                {
-                    GameObject obj = new GameObject();
-                    obj.name = typeof(T).Name;
-                    instance = obj.AddComponent<T>();
-                }
-            }
+        get {
             return instance;
         }
     }

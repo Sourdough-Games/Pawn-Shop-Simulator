@@ -4,6 +4,12 @@ using UnityEngine;
 
 public static class Helper
 {
+    public static bool IsWithinPlayerReach(Transform obj, float additional_reach = 0) {
+        PlayerObjectHolder holder = Singleton<PlayerObjectHolder>.Instance;
+
+        float distance = Vector3.Distance(obj.position, holder.transform.position);
+        return distance <= holder.reachDistance + additional_reach;
+    }    
     public static void SetLayerRecursively(GameObject obj, int newLayer)
     {
         obj.layer = newLayer;
@@ -31,5 +37,14 @@ public static class Helper
         }
 
         return number.ToString("F0"); // No conversion needed
+    }
+
+    public static Vector3 GetRandomPositionWithinBounds(Bounds bounds)
+    {
+        return new Vector3(
+            Random.Range(bounds.min.x, bounds.max.x),
+            Random.Range(bounds.min.y, bounds.max.y),
+            Random.Range(bounds.min.z, bounds.max.z)
+        );
     }
 }

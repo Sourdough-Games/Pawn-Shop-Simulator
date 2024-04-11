@@ -61,7 +61,7 @@ public class ProductWorldSlot : MonoBehaviour
 
         Rigidbody rb = p_transform.GetComponent<Rigidbody>();
         
-        p_transform.GetComponentsInChildren<Collider>().All(c => c.enabled = false);
+        //p_transform.GetComponentsInChildren<Collider>().All(c => c.enabled = false);
 
         rb.isKinematic = true;
         rb.useGravity = false;

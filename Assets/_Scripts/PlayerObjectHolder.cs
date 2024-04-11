@@ -33,8 +33,6 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
     private void Start()
     {
         holdLayer = LayerMask.NameToLayer("HoldLayer");
-
-        screenSpaceCanvas.Hide();
     }
 
     void Update() {
@@ -50,11 +48,7 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
     public bool TryPickupHoldable(IHoldable holdable)
     {
-        if(holdable == null) return false; //nothing to pick up
-        if (heldObject != null) {
-            Singleton<NotificationSystem>.Instance.ShowMessage("HolderAlreadyHolding");
-            return false;
-        }
+        if (heldObject != null) return false;
 
         holdable.ToggleWorldspaceUI(false);
         PickupHoldable(holdable);

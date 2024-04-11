@@ -13,6 +13,7 @@ public abstract partial class Modal : MonoBehaviour, IModal
         Cursor.lockState = CursorLockMode.Locked;
         gameObject.SetActive(false);
         Singleton<FirstPersonController>.Instance.Unfreeze();
+        Singleton<PlayerController>.Instance.openModal = null;
     }
 
     void Awake() {
@@ -38,5 +39,6 @@ public abstract partial class Modal : MonoBehaviour, IModal
         Cursor.lockState = CursorLockMode.Confined;
         gameObject.SetActive(true);
         Singleton<FirstPersonController>.Instance.Freeze();
+        Singleton<PlayerController>.Instance.openModal = this;
     }
 }

@@ -7,9 +7,13 @@ public class StorageUnit : MonoBehaviour
     [SerializeField] private Animator doorAnimator;
     [SerializeField] private Transform SpawnArea;
 
+    [SerializeField] private AudioSource openSound;
+
     private List<Product> spawnedProducts = new List<Product>();
 
     public bool CanSpawn = false;
+
+    public bool IsOwned = false;
 
     public bool IsOpen {
         get {
@@ -17,16 +21,18 @@ public class StorageUnit : MonoBehaviour
         }
     }
 
-    public void OpenUnit(int spawn_products = 0) {
+    public void OpenUnit() {
         if (!doorAnimator.GetBool("IsOpen")) {
-            SpawnProducts(spawn_products);
+            SpawnProducts();
             doorAnimator.Play("OpenDoor");
+            openSound.Play();
         }
     }
     
     public void CloseUnit(bool doAnimation = true) {
         if (doorAnimator.GetBool("IsOpen")) {
             doorAnimator.Play("CloseDoor");
+            openSound.Play();
         }
     }
 
@@ -41,10 +47,11 @@ public class StorageUnit : MonoBehaviour
         Debug.LogError("Spawn Products");
 
         ProductSO[] products = Singleton<ProductManager>.Instance.Products;
+        PlayerController c = Singleton<PlayerController>.Instance;
 
         Bounds bounds = SpawnArea.GetComponent<Collider>().bounds;
 
-        for (int i = 0; i < Random.Range(1, limit); i++)
+        for (int i = 0; i < Random.Range(c.StorageUnitProductSpawnMin, c.StorageUnitProductSpawnMax); i++)
         {
             Vector3 randomPosition = Helper.GetRandomPositionWithinBounds(bounds);
             ProductSO randomProduct = products[Random.Range(0, products.Length)];

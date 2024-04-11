@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StorageUnitsManager : Singleton<StorageUnitsManager>
 {
-    private StorageUnit[] StorageUnits;
+    public StorageUnit[] StorageUnits;
 
     void Start() {
         StorageUnits = GetComponentsInChildren<StorageUnit>();

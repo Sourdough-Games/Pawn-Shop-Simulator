@@ -9,26 +9,22 @@ public class Character : MonoBehaviour
     public UnityEvent CharacterClicked;
 
     [SerializeField] private Outline ot;
-
     bool PlayerIsWithinDistance
     {
         get
         {
-            float distance = Vector3.Distance(transform.position, Singleton<PlayerObjectHolder>.Instance.transform.position);
-
-            // Check if the distance is within the allowed range
-            return distance <= Singleton<PlayerObjectHolder>.Instance.reachDistance;
+            return Helper.IsWithinPlayerReach(transform);
         }
     }
 
     void Update() {
-        if(ot.enabled && EventSystem.current.IsPointerOverGameObject() || !PlayerIsWithinDistance) {
+        if(ot.enabled && Singleton<PlayerController>.Instance.openModal != null || !PlayerIsWithinDistance) {
             ot.enabled = false;
         }
     }
 
     private void OnMouseDown() {
-        if(PlayerIsWithinDistance) {
+        if(PlayerIsWithinDistance && Singleton<PlayerController>.Instance.openModal == null) {
             CharacterClicked?.Invoke();
         }
     }

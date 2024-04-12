@@ -1,4 +1,4 @@
-## Download latest build of the game: https://grumpycrouton.com/PawnShopSimulator/Beta.zip
+## Download latest build of the game: [https://grumpycrouton.com/PawnShopSimulator/Beta.zip](https://grumpycrouton.com/PawnShopSimulator/Alpha.zip)
 
 ## Game is a Work in Progress
 - [Complete Features](https://github.com/Sourdough-Games/Pawn-Shop-Simulator/issues?q=is%3Aissue+is%3Aclosed+label%3Afeature)

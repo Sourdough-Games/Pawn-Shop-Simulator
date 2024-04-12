@@ -70,6 +70,7 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         if (HeldTransform.parent != null && HeldTransform.parent.TryGetComponent<ProductWorldSlot>(out currentSlot)) {
             currentSlot.ProductInSlot.ToggleHighlight(false);
             currentSlot.ProductInSlot = null;
+            currentSlot.currentlySetPrice = 0;
         }
 
         Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();

@@ -131,6 +131,7 @@ public class ProductWorldSlot : MonoBehaviour
         } else {
             if (holder.TryPickupHoldable(ProductInSlot))
             {
+                currentlySetPrice = 0;
                 ProductInSlot.ToggleHighlight(false);
                 ProductInSlot = null;
             }

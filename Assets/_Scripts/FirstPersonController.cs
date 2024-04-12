@@ -395,6 +395,11 @@ public class FirstPersonController : Singleton<FirstPersonController>
     {
         #region Movement
 
+        if (!Application.isFocused)
+        {
+            return;
+        }
+
         if (!frozen && playerCanMove)
         {
             // Calculate how fast we should be moving

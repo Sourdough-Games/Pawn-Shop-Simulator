@@ -19,6 +19,12 @@ public class ProductPriceTag : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(slot.ProductInSlot == null) {
+            ot.enabled = false;
+            priceText.text = "";
+            return;
+        }
+
         priceText.text = slot.currentlySetPrice == 0 ? "???" : Helper.ConvertToDollarAmount(slot.currentlySetPrice);
 
         if(!Helper.IsWithinPlayerReach(transform)) {

@@ -56,14 +56,6 @@ PrefabInstance:
       propertyPath: maxDistance
       value: 1.75
       objectReference: {fileID: 0}
-    - target: {fileID: 8489353540368809099, guid: 5caa939b683b62d4288c1d79d1d8e450, type: 3}
-      propertyPath: allowedSizes.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8489353540368809099, guid: 5caa939b683b62d4288c1d79d1d8e450, type: 3}
-      propertyPath: allowedSizes.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8994991388362425105, guid: 5caa939b683b62d4288c1d79d1d8e450, type: 3}
       propertyPath: m_Size.y
       value: 0.021654796

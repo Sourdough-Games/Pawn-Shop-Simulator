@@ -137,16 +137,19 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         screenSpaceCanvas.Hide();
     }
 
-    bool CanDropHeldObject() //function only called when dropping/throwing
+    bool CanDropHeldObject()
     {
+        // Define the direction in which to cast the ray (forward from the player)
+        Vector3 forwardDirection = transform.forward;
 
-        Vector3 directionToHeldObject = HeldTransform.position - transform.position;
-        float clipRange = directionToHeldObject.magnitude;
+        // Define the maximum distance for the raycast
+        float maxDistance = 1.5f; // You can adjust this distance according to your needs
 
+        // Perform the raycast
         RaycastHit hit;
-        bool isHit = Physics.Raycast(transform.position, directionToHeldObject.normalized, out hit, clipRange, ~9);
+        bool isHit = Physics.Raycast(transform.position, forwardDirection, out hit, maxDistance);
 
-        return isHit;
+        return !isHit;
     }
 
     public IEnumerator ReleaseZoomLock() {

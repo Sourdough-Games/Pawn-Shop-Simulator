@@ -14656,6 +14656,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2916001145778905636, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
+      propertyPath: m_TagString
+      value: Sound Effect
+      objectReference: {fileID: 0}
     - target: {fileID: 2934597413499687219, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
       propertyPath: m_Name
       value: FirstPersonController
@@ -14688,6 +14692,10 @@ PrefabInstance:
       propertyPath: screenSpaceCanvas
       value: 
       objectReference: {fileID: 553110686}
+    - target: {fileID: 8440403940227683240, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
+      propertyPath: m_Volume
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 9089633503474689917, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
       propertyPath: escapeMenu
       value: 

@@ -654,6 +654,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   escapeMenu: {fileID: 0}
+  playerController: {fileID: 0}
+  storageUnitProductSpawnMin: 1
+  storageUnitProductSpawnMax: 15
+  ownedStorageUnits: []
+  openModal: {fileID: 0}
 --- !u!114 &7472308626446259021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -670,6 +675,7 @@ MonoBehaviour:
   holdPosition: {fileID: 6930397295045140903}
   screenSpaceCanvas: {fileID: 0}
   pickupSound: {fileID: 8440403940227683240}
+  putDownSound: {fileID: 0}
   reachDistance: 2.5
 --- !u!114 &5438831462770043067
 MonoBehaviour:

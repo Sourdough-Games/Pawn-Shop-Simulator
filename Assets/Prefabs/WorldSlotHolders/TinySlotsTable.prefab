@@ -307,6 +307,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 6339924749816152709}
     m_Modifications:
     - target: {fileID: 521340467607790081, guid: 482006a3d9d2e7645b11d7786ae1fc0d, type: 3}
+      propertyPath: placeProductSound
+      value: 
+      objectReference: {fileID: 365067631694965120}
+    - target: {fileID: 521340467607790081, guid: 482006a3d9d2e7645b11d7786ae1fc0d, type: 3}
       propertyPath: allowedSizes.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -391,6 +395,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 482006a3d9d2e7645b11d7786ae1fc0d, type: 3}
+--- !u!82 &365067631694965120 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 3708804912254047433, guid: 482006a3d9d2e7645b11d7786ae1fc0d, type: 3}
+  m_PrefabInstance: {fileID: 3920569813890219337}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7361716819924741028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5783390518132758253, guid: 482006a3d9d2e7645b11d7786ae1fc0d, type: 3}

@@ -9,6 +9,8 @@ public class ProductWorldSlot : MonoBehaviour
 
     private Outline outline;
 
+    [SerializeField] private AudioSource placeProductSound;
+
     public Product ProductInSlot;
 
     public float maxDistance {
@@ -68,6 +70,8 @@ public class ProductWorldSlot : MonoBehaviour
 
         p_transform.localPosition = product.ProductData.WorldSlotPositionData.Position;
         p_transform.localRotation = Quaternion.Euler(product.ProductData.WorldSlotPositionData.Rotation);
+
+        placeProductSound.Play();
     }
 
     public bool IsValidProductPlacement {

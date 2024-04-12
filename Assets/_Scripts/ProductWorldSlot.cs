@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class ProductWorldSlot : MonoBehaviour
@@ -12,6 +13,8 @@ public class ProductWorldSlot : MonoBehaviour
     [SerializeField] private AudioSource placeProductSound;
 
     public Product ProductInSlot;
+
+    public float currentlySetPrice = 0;
 
     public float maxDistance {
         get {
@@ -27,10 +30,6 @@ public class ProductWorldSlot : MonoBehaviour
     {
         outline = GetComponent<Outline>();
         outline.enabled = false;
-    }
-
-    public void Update() {
-
     }
 
     public bool TryInsertProduct(Product product) {

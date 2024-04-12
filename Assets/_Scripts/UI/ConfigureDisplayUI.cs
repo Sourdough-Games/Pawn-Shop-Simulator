@@ -19,6 +19,7 @@ public class ConfigureDisplaySlotUI : Modal
 
     public void SetPrice() {
         productSlot.currentlySetPrice = float.Parse(priceInput.text.Trim());
+        Close();
     }
 
     public override void Draw()

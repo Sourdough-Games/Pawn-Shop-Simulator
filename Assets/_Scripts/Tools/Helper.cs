@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public static class Helper
@@ -19,10 +20,13 @@ public static class Helper
             SetLayerRecursively(child.gameObject, newLayer);
         }
     }
+    private static CultureInfo userCulture = CultureInfo.CurrentCulture;
+
     public static string ConvertToDollarAmount(float number)
     {
-        if(number < 999999) {
-            return number.ToString("C");
+        if (number < 999999)
+        {
+            return number.ToString("C", userCulture); // Currency formatting with the user's locale
         }
 
         string[] suffixes = { "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "O" };
@@ -32,11 +36,11 @@ public static class Helper
         {
             if (number >= thresholds[i])
             {
-                return (number / thresholds[i]).ToString("F1") + suffixes[i];
+                return (number / thresholds[i]).ToString("F1", userCulture) + suffixes[i];
             }
         }
 
-        return number.ToString("F0"); // No conversion needed
+        return number.ToString("F0", userCulture); // No conversion needed
     }
 
     public static Vector3 GetRandomPositionWithinBounds(Bounds bounds)

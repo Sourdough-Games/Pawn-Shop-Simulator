@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] public ConfigureDisplaySlotUI configureDisplaySlotUI;
+
     public void QuitGame() {
         Application.Quit();
     }

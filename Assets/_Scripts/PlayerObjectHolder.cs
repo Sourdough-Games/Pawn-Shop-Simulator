@@ -48,7 +48,7 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
     public bool TryPickupHoldable(IHoldable holdable)
     {
-        if (heldObject != null) return false;
+        if (heldObject != null || holdable == null) return false;
 
         holdable.ToggleWorldspaceUI(false);
         PickupHoldable(holdable);
@@ -65,6 +65,12 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         player.enableZoom = false;
 
         heldObject = holdable;
+
+        ProductWorldSlot currentSlot;
+        if (HeldTransform.parent != null && HeldTransform.parent.TryGetComponent<ProductWorldSlot>(out currentSlot)) {
+            currentSlot.ProductInSlot.ToggleHighlight(false);
+            currentSlot.ProductInSlot = null;
+        }
 
         Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();
 
@@ -102,11 +108,14 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponentInChildren<Collider>(), false);
     }
 
-    public void DropHoldable()
+    public void DropHoldable(bool do_drop_validation = true)
     {
         if(heldObject == null) return;
 
-        StopClipping();
+        if(do_drop_validation && !CanDropHeldObject()) {
+            Debug.LogError("Cannot drop item");
+            return;
+        }
 
         Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();
 
@@ -128,22 +137,19 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         screenSpaceCanvas.Hide();
     }
 
-    void StopClipping() //function only called when dropping/throwing
+    bool CanDropHeldObject()
     {
-        Vector3 directionToHeldObject = HeldTransform.position - transform.position;
-        float clipRange = directionToHeldObject.magnitude;
+        // Define the direction in which to cast the ray (forward from the player)
+        Vector3 forwardDirection = transform.forward;
 
+        // Define the maximum distance for the raycast
+        float maxDistance = 1.5f; // You can adjust this distance according to your needs
+
+        // Perform the raycast
         RaycastHit hit;
-        bool isHit = Physics.Raycast(transform.position, directionToHeldObject.normalized, out hit, clipRange, ~9);
-        if (isHit)
-        {
+        bool isHit = Physics.Raycast(transform.position, forwardDirection, out hit, maxDistance);
 
-            Debug.LogError($"{hit.collider.gameObject.name}");
-
-            //change object position to camera position 
-            HeldTransform.transform.position = transform.position + new Vector3(0f, -0.5f, 0f); //offset slightly downward to stop object dropping above player 
-            //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
-        }
+        return !isHit;
     }
 
     public IEnumerator ReleaseZoomLock() {

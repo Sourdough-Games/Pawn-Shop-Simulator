@@ -25,7 +25,7 @@ public class GarageDoor : MonoBehaviour
     }
 
     public void Update() {
-        if(isOpening) {
+        if (isOpening) {
             ot.OutlineColor = Color.white;
             return;
         }
@@ -34,8 +34,11 @@ public class GarageDoor : MonoBehaviour
             ot.OutlineColor = Color.green;
             ot.enabled = true;
         } else {
-
             ot.OutlineColor = Color.white;
+
+            if(!PlayerIsWithinDistance || !unit.IsOwned) {
+                ot.enabled = false;
+            }
         }
     }
 
@@ -54,12 +57,10 @@ public class GarageDoor : MonoBehaviour
             if (unit.IsOpen)
             {
                 ot.enabled = false;
-                isOpening = false;
                 unit.CloseUnit();
             } else {
                 Debug.LogError("Open Unit");
                 unit.OpenUnit();
-                isOpening = true;
                 ot.enabled = false;
             }
         }

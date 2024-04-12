@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class ProductWorldSlot : MonoBehaviour
@@ -9,7 +10,11 @@ public class ProductWorldSlot : MonoBehaviour
 
     private Outline outline;
 
+    [SerializeField] private AudioSource placeProductSound;
+
     public Product ProductInSlot;
+
+    public float currentlySetPrice = 0;
 
     public float maxDistance {
         get {
@@ -25,10 +30,6 @@ public class ProductWorldSlot : MonoBehaviour
     {
         outline = GetComponent<Outline>();
         outline.enabled = false;
-    }
-
-    public void Update() {
-
     }
 
     public bool TryInsertProduct(Product product) {
@@ -53,7 +54,7 @@ public class ProductWorldSlot : MonoBehaviour
     public void InsertProduct(Product product) {
         ProductInSlot = product;
 
-        Singleton<PlayerObjectHolder>.Instance.DropHoldable();
+        Singleton<PlayerObjectHolder>.Instance.DropHoldable(false);
 
         Transform p_transform = product.transform;
 
@@ -68,6 +69,8 @@ public class ProductWorldSlot : MonoBehaviour
 
         p_transform.localPosition = product.ProductData.WorldSlotPositionData.Position;
         p_transform.localRotation = Quaternion.Euler(product.ProductData.WorldSlotPositionData.Rotation);
+
+        placeProductSound.Play();
     }
 
     public bool IsValidProductPlacement {

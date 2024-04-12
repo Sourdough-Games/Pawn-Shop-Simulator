@@ -9,6 +9,8 @@ public class StorageUnit : MonoBehaviour
 
     [SerializeField] private AudioSource openSound;
 
+    GarageDoor garageDoor;
+
     private List<Product> spawnedProducts = new List<Product>();
 
     public bool CanSpawn = false;
@@ -21,11 +23,17 @@ public class StorageUnit : MonoBehaviour
         }
     }
 
+    void Start() {
+        garageDoor = GetComponentInChildren<GarageDoor>();
+    }
+
     public void OpenUnit() {
         if (!doorAnimator.GetBool("IsOpen")) {
             SpawnProducts();
             doorAnimator.Play("OpenDoor");
             openSound.Play();
+
+            garageDoor.isOpening = true;
         }
     }
     
@@ -33,6 +41,8 @@ public class StorageUnit : MonoBehaviour
         if (doorAnimator.GetBool("IsOpen")) {
             doorAnimator.Play("CloseDoor");
             openSound.Play();
+
+            garageDoor.isOpening = false;
         }
     }
 

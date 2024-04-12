@@ -19,8 +19,8 @@ MonoBehaviour:
   productType: 2
   productSize: 2
   WorldSlotPositionData:
-    Position: {x: -0.33, y: 0.7, z: 0}
-    Rotation: {x: 0, y: -90, z: 0}
+    Position: {x: 0.3, y: 0.7, z: 0}
+    Rotation: {x: 0, y: 90, z: 0}
   HandSlotPositionData:
     Position: {x: 0, y: 0.25, z: -0.15}
     Rotation: {x: 0, y: 180, z: 0}

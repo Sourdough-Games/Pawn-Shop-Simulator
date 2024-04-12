@@ -69,7 +69,7 @@ public class Product : MonoBehaviour, IHoldable
 
     public void PickUp()
     {
-        if (Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this)) {
+        if (Singleton<PlayerController>.Instance.openModal == null && Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this)) {
             isHeld = true;
         }
     }

@@ -53,7 +53,7 @@ public class ProductWorldSlot : MonoBehaviour
     public void InsertProduct(Product product) {
         ProductInSlot = product;
 
-        Singleton<PlayerObjectHolder>.Instance.DropHoldable();
+        Singleton<PlayerObjectHolder>.Instance.DropHoldable(false);
 
         Transform p_transform = product.transform;
 

@@ -66,6 +66,12 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
         heldObject = holdable;
 
+        ProductWorldSlot currentSlot;
+        if (HeldTransform.parent != null && HeldTransform.parent.TryGetComponent<ProductWorldSlot>(out currentSlot)) {
+            currentSlot.ProductInSlot.ToggleHighlight(false);
+            currentSlot.ProductInSlot = null;
+        }
+
         Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();
 
         HeldTransform.GetComponentsInChildren<Collider>().All(c => c.enabled = false);
@@ -102,11 +108,14 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponentInChildren<Collider>(), false);
     }
 
-    public void DropHoldable()
+    public void DropHoldable(bool do_drop_validation = true)
     {
         if(heldObject == null) return;
 
-        StopClipping();
+        if(do_drop_validation && !CanDropHeldObject()) {
+            Debug.LogError("Cannot drop item");
+            return;
+        }
 
         Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();
 
@@ -128,22 +137,16 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         screenSpaceCanvas.Hide();
     }
 
-    void StopClipping() //function only called when dropping/throwing
+    bool CanDropHeldObject() //function only called when dropping/throwing
     {
+
         Vector3 directionToHeldObject = HeldTransform.position - transform.position;
         float clipRange = directionToHeldObject.magnitude;
 
         RaycastHit hit;
         bool isHit = Physics.Raycast(transform.position, directionToHeldObject.normalized, out hit, clipRange, ~9);
-        if (isHit)
-        {
 
-            Debug.LogError($"{hit.collider.gameObject.name}");
-
-            //change object position to camera position 
-            HeldTransform.transform.position = transform.position + new Vector3(0f, -0.5f, 0f); //offset slightly downward to stop object dropping above player 
-            //if your player is small, change the -0.5f to a smaller number (in magnitude) ie: -0.1f
-        }
+        return isHit;
     }
 
     public IEnumerator ReleaseZoomLock() {

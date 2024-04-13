@@ -95,7 +95,7 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         Helper.SetLayerRecursively(HeldTransform.gameObject, holdLayer);
 
         if(holdable is Product) {
-            screenSpaceCanvas.Setup((holdable as Product).ProductData);
+            screenSpaceCanvas.Setup(holdable as Product);
             screenSpaceCanvas.Show();
         }
     }

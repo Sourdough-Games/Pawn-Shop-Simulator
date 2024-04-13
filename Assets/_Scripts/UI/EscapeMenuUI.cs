@@ -1,12 +1,45 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using UnityEditor.Localization.Editor;
 using UnityEngine;
+using UnityEngine.Localization.Components;
+using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
+
+[Serializable]
+class LanguageSelectionData {
+    public string languageCode;
+    public string languageText;
+}
 
 public class EscapeMenuUI : Modal
 {
+
+    [SerializeField] TMP_Dropdown languageDropdown;
+
+    [SerializeField] private List<LanguageSelectionData> languageOptions = new();
+
     public override void Draw() {
         
+    }
+
+    void Start() {
+        foreach(LanguageSelectionData d in languageOptions) {
+            languageDropdown.AddOptions(new List<string>() { d.languageText });
+        }
+
+        languageDropdown.onValueChanged.AddListener(OnLanguageDropdownValueChanged);
+    }
+
+    private void OnLanguageDropdownValueChanged(int chosen_id)
+    {
+        LanguageSelectionData d = languageOptions[chosen_id];
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(d.languageCode);
+        
+        GetComponentsInChildren<LocalizeStringEvent>().ToList().ForEach(e => e.RefreshString());
     }
 
     public void QuitToMenu() {

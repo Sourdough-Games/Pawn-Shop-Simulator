@@ -30,6 +30,26 @@ MonoBehaviour:
     m_Localized: "Tama\xF1o"
     m_Metadata:
       m_Items: []
+  - m_Id: 1993942860414976
+    m_Localized: Precio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1995459155836928
+    m_Localized: Pausa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1995703746674688
+    m_Localized: "Salir al Men\xFA"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1995972270211072
+    m_Localized: Salir
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1996163895377920
+    m_Localized: Configurar Pantalla
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

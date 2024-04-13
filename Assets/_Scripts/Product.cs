@@ -9,6 +9,8 @@ public class Product : MonoBehaviour, IHoldable
     [SerializeField] private ProductSO Data;
     [SerializeField] private Collider denyDropCollider;
 
+    public float currentlySetPrice = 0;
+
     public float maxDistance {
         get {
             return Singleton<PlayerObjectHolder>.Instance.reachDistance;
@@ -62,7 +64,7 @@ public class Product : MonoBehaviour, IHoldable
         FaceTarget ft = LookAtProductCanvas.gameObject.AddComponent<FaceTarget>();
         ft.target = Singleton<PlayerObjectHolder>.Instance.transform;
         LookAtProductCanvas.Hide();
-        LookAtProductCanvas.Setup(Data);
+        LookAtProductCanvas.Setup(this);
 
         denyDropCollider.enabled = false;
     }

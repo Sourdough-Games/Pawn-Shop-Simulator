@@ -14,7 +14,16 @@ public class ProductWorldSlot : MonoBehaviour
 
     public Product ProductInSlot;
 
-    public float currentlySetPrice = 0;
+    public float currentlySetPrice {
+        get {
+            return ProductInSlot != null ? ProductInSlot.currentlySetPrice : 0;
+        }
+        set {
+            if(ProductInSlot != null) {
+                ProductInSlot.currentlySetPrice = value;
+            }
+        }
+    }
 
     public float maxDistance {
         get {

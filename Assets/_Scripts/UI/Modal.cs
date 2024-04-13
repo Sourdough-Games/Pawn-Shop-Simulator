@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,12 @@ public abstract partial class Modal : MonoBehaviour, IModal
     {
         Cursor.lockState = CursorLockMode.Locked;
         gameObject.SetActive(false);
-        Singleton<FirstPersonController>.Instance.Unfreeze();
+
+        var c = Singleton<FirstPersonController>.Instance;
+
+        c.Unfreeze();
+        c.crosshairObject.gameObject.SetActive(true);
+
         Singleton<PlayerController>.Instance.openModal = null;
     }
 
@@ -38,7 +44,12 @@ public abstract partial class Modal : MonoBehaviour, IModal
     {
         Cursor.lockState = CursorLockMode.Confined;
         gameObject.SetActive(true);
-        Singleton<FirstPersonController>.Instance.Freeze();
+
+        var c = Singleton<FirstPersonController>.Instance;
+
+        c.Freeze();
+        c.crosshairObject.gameObject.SetActive(false);
+
         Singleton<PlayerController>.Instance.openModal = this;
     }
 }

@@ -75,12 +75,15 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
         Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();
 
-        HeldTransform.GetComponentsInChildren<Collider>().All(c => c.enabled = false);
+        //HeldTransform.GetComponentsInChildren<Collider>().All(c => c.enabled = false);
         
-        rb.isKinematic = true;
+        rb.isKinematic = false;
         rb.useGravity = false;
 
         HeldTransform.SetParent(holdPosition);
+
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+        //Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
 
         ProductPositionData HandPosition = holdable.GetHandPositionData();
 
@@ -100,27 +103,31 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
     void ThrowHoldable(float force = 15f, float multiplier = 10)
     {
         Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();
-        DropHoldable();
-        
-        Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponentInChildren<Collider>(), true);
+        if(TryDropHoldable()) {
+            //Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
 
-        rb.AddForce(transform.forward * force * multiplier);
+            rb.AddForce(transform.forward * force * multiplier);
 
-        Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponentInChildren<Collider>(), false);
+            //Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
+        }
     }
 
-    public void DropHoldable(bool do_drop_validation = true)
-    {
-        if(heldObject == null) return;
-
-        if(do_drop_validation && !CanDropHeldObject()) {
+    public bool TryDropHoldable(bool do_drop_validation = true) {
+        if (heldObject == null || do_drop_validation && !CanDropHeldObject())
+        {
             Debug.LogError("Cannot drop item");
-            return;
+            return false;
         }
 
+        DropHoldable();
+        return true;
+    }
+
+    private void DropHoldable()
+    {
         Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();
 
-        rb.isKinematic = false;
+        //rb.isKinematic = false;
         rb.useGravity = true;
 
         HeldTransform.SetParent(null);
@@ -129,7 +136,9 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
         heldObject.Drop();
 
-        HeldTransform.GetComponentsInChildren<Collider>().All(c => c.enabled = true);
+        //HeldTransform.GetComponentsInChildren<Collider>().All(c => c.enabled = true);
+        rb.constraints = RigidbodyConstraints.None;
+        //Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
 
         heldObject = null;
 
@@ -140,17 +149,18 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
     bool CanDropHeldObject()
     {
-        // Define the direction in which to cast the ray (forward from the player)
-        Vector3 forwardDirection = transform.forward;
+        return CurrentHoldable.CanBeDropped();
+        // // Define the direction in which to cast the ray (forward from the player)
+        // Vector3 forwardDirection = transform.forward;
 
-        // Define the maximum distance for the raycast
-        float maxDistance = 1.5f; // You can adjust this distance according to your needs
+        // // Define the maximum distance for the raycast
+        // float maxDistance = 1.5f; // You can adjust this distance according to your needs
 
-        // Perform the raycast
-        RaycastHit hit;
-        bool isHit = Physics.Raycast(transform.position, forwardDirection, out hit, maxDistance);
+        // // Perform the raycast
+        // RaycastHit hit;
+        // bool isHit = Physics.Raycast(transform.position, forwardDirection, out hit, maxDistance);
 
-        return !isHit;
+        // return !isHit;
     }
 
     public IEnumerator ReleaseZoomLock() {

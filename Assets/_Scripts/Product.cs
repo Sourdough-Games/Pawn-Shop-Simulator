@@ -7,6 +7,7 @@ public class Product : MonoBehaviour, IHoldable
 {
     [SerializeField] private ProductWorldCanvas LookAtProductCanvas;
     [SerializeField] private ProductSO Data;
+    [SerializeField] private Collider denyDropCollider;
 
     public float maxDistance {
         get {
@@ -42,6 +43,8 @@ public class Product : MonoBehaviour, IHoldable
         }
     }
 
+    public bool isColliding = false;
+
     bool PlayerIsWithinDistance
     {
         get {
@@ -60,18 +63,32 @@ public class Product : MonoBehaviour, IHoldable
         ft.target = Singleton<PlayerObjectHolder>.Instance.transform;
         LookAtProductCanvas.Hide();
         LookAtProductCanvas.Setup(Data);
+
+        denyDropCollider.enabled = false;
     }
 
     public void Drop()
     {
         isHeld = false;
+        denyDropCollider.enabled = false;
     }
 
     public void PickUp()
     {
         if (Singleton<PlayerController>.Instance.openModal == null && Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this)) {
             isHeld = true;
+            denyDropCollider.enabled = true;
         }
+    }
+
+    private void OnTriggerStay() {
+        if(isHeld) {
+            isColliding = true;
+        }
+    }
+
+    private void OnTriggerExit() {
+        isColliding = false;
     }
 
     void OnMouseDown() {
@@ -138,5 +155,11 @@ public class Product : MonoBehaviour, IHoldable
     public void ToggleWorldspaceUI(bool on)
     {
         LookAtProductCanvas.gameObject.SetActive(on);
+    }
+
+    public bool CanBeDropped()
+    {
+        Debug.LogError(isColliding);
+        return !isColliding;
     }
 }

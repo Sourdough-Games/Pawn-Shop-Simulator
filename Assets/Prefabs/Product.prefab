@@ -1325,6 +1325,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7351524135155923972}
   - {fileID: 4408979855326205970}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1342,6 +1343,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LookAtProductCanvas: {fileID: 4412668651052796714}
   Data: {fileID: 11400000, guid: 007bfcf9f21841948b7d6eb1f9c68851, type: 2}
+  denyDropCollider: {fileID: 2431360523016925692}
+  isColliding: 0
 --- !u!54 &4226867292563011318
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1737,3 +1740,56 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!1 &8357975761125617439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7351524135155923972}
+  - component: {fileID: 2431360523016925692}
+  m_Layer: 0
+  m_Name: DenyDropTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7351524135155923972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8357975761125617439}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4607166055706424424}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &2431360523016925692
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8357975761125617439}
+  m_Material: {fileID: 13400000, guid: 380e13ae25202794ab2d50467c31b34d, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 768
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5145125, y: 0.7791754, z: 0.5126231}
+  m_Center: {x: 0, y: 0, z: 0}

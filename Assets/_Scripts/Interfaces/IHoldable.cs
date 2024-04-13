@@ -21,4 +21,6 @@ public interface IHoldable
     bool CanBeSlottedVertically();
 
     void ToggleWorldspaceUI(bool on);
+
+    bool CanBeDropped();
 }

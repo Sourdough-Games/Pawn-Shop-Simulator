@@ -14,9 +14,9 @@ public interface IHoldable
 
     ProductSize GetProductSize();
 
-    ProductPositionData GetSlotPositionData();
+    GenericPositionData GetSlotPositionData();
 
-    ProductPositionData GetHandPositionData();
+    GenericPositionData GetHandPositionData();
 
     bool CanBeSlottedVertically();
 

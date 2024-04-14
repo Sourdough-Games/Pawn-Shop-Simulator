@@ -85,7 +85,7 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         rb.constraints = RigidbodyConstraints.FreezeAll;
         //Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
 
-        ProductPositionData HandPosition = holdable.GetHandPositionData();
+        GenericPositionData HandPosition = holdable.GetHandPositionData();
 
         HeldTransform.localPosition = HandPosition.Position;
         HeldTransform.localRotation = Quaternion.Euler(HandPosition.Rotation);

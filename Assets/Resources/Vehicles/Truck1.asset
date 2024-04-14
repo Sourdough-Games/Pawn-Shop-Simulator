@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c64154de02fce14f8ed0384e84fcb5e, type: 3}
+  m_Name: Truck1
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5656813082643654227, guid: 632f11cfe57944f499ef0dd4b3eacc42, type: 3}
+  VehicleName: Truck 1
+  LocalizationKey: 
+  maxSteeringAngle: 30
+  motorForce: 10000
+  brakeForce: 2500
+  accelerationRate: 2000
+  sitPosition:
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}

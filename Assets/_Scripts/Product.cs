@@ -47,6 +47,8 @@ public class Product : MonoBehaviour, IHoldable
 
     public bool isColliding = false;
 
+    [SerializeField] private TruckBed inTruckBed;
+
     bool PlayerIsWithinDistance
     {
         get {
@@ -69,6 +71,27 @@ public class Product : MonoBehaviour, IHoldable
         denyDropCollider.enabled = false;
     }
 
+    void Update() {
+        if(inTruckBed != null) {
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+
+            if(inTruckBed.IsTruckRunning) {
+                rb.isKinematic = true;
+                rb.excludeLayers =  LayerMask.GetMask("Vehicle", "Ignore Raycast");
+                transform.SetParent(inTruckBed.transform);
+            } else {
+                rb.isKinematic = false;
+                transform.SetParent(null);
+                rb.excludeLayers = LayerMask.GetMask();
+
+                inTruckBed.bedCollider.enabled = false;
+
+                inTruckBed = null;
+            }
+        }
+    }
+
     public void Drop()
     {
         isHeld = false;
@@ -77,9 +100,18 @@ public class Product : MonoBehaviour, IHoldable
 
     public void PickUp()
     {
-        if (Singleton<PlayerController>.Instance.openModal == null && Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this)) {
+        var c = Singleton<PlayerController>.Instance;
+
+        if (c.openModal == null && c.inVehicle == null && Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this)) {
             isHeld = true;
             denyDropCollider.enabled = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        TruckBed truckBed;
+        if(other.TryGetComponent<TruckBed>(out truckBed)) {
+            inTruckBed = truckBed;
         }
     }
 
@@ -89,7 +121,7 @@ public class Product : MonoBehaviour, IHoldable
         }
     }
 
-    private void OnTriggerExit() {
+    private void OnTriggerExit(Collider other) {
         isColliding = false;
     }
 
@@ -100,7 +132,7 @@ public class Product : MonoBehaviour, IHoldable
     }
 
     void OnMouseOver() {
-        if (!PlayerIsWithinDistance) return;
+        if (!PlayerIsWithinDistance && Singleton<PlayerController>.Instance.inVehicle != null && Singleton<PlayerController>.Instance.openModal != null) return;
 
         ToggleHighlight(true);
     }
@@ -139,12 +171,12 @@ public class Product : MonoBehaviour, IHoldable
         return ProductData.productSize;
     }
 
-    public ProductPositionData GetSlotPositionData()
+    public GenericPositionData GetSlotPositionData()
     {
         return Data.WorldSlotPositionData;
     }
 
-    public ProductPositionData GetHandPositionData()
+    public GenericPositionData GetHandPositionData()
     {
         return Data.HandSlotPositionData;
     }

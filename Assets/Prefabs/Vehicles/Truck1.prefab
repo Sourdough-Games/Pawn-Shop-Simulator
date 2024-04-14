@@ -187,8 +187,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613588218662145539}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.20577289, y: 0.000000023727523, z: -0.0000000049892748, w: -0.9785998}
-  m_LocalPosition: {x: 0.00000008940651, y: 2.2, z: -5}
+  m_LocalRotation: {x: -0.20577288, y: -0.000000010076349, z: 0.0000000021187674, w: -0.9785998}
+  m_LocalPosition: {x: 0.00000008940651, y: 2.1999998, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -692,8 +692,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3810520723905216080}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.20577289, y: 0.000000023727523, z: -0.0000000049892748, w: -0.9785998}
-  m_LocalPosition: {x: 0.00000008940651, y: 2.2, z: -5}
+  m_LocalRotation: {x: -0.20577288, y: -0.000000010076349, z: 0.0000000021187674, w: -0.9785998}
+  m_LocalPosition: {x: 0.00000008940651, y: 2.1999998, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1993,7 +1993,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1

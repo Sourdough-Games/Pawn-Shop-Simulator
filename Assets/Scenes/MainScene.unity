@@ -18612,7 +18612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1238001814992788213, guid: 632f11cfe57944f499ef0dd4b3eacc42, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2
+      value: 2.1999998
       objectReference: {fileID: 0}
     - target: {fileID: 1238001814992788213, guid: 632f11cfe57944f499ef0dd4b3eacc42, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18624,15 +18624,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1238001814992788213, guid: 632f11cfe57944f499ef0dd4b3eacc42, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.20577289
+      value: -0.20577288
       objectReference: {fileID: 0}
     - target: {fileID: 1238001814992788213, guid: 632f11cfe57944f499ef0dd4b3eacc42, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000062290155
+      value: -0.000000010076349
       objectReference: {fileID: 0}
     - target: {fileID: 1238001814992788213, guid: 632f11cfe57944f499ef0dd4b3eacc42, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000000013097718
+      value: 0.0000000021187674
       objectReference: {fileID: 0}
     - target: {fileID: 3485763663649919792, guid: 632f11cfe57944f499ef0dd4b3eacc42, type: 3}
       propertyPath: field of view
@@ -18844,42 +18844,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 4110349645760023432, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4110349645760023432, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4110349645760023432, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4110349645760023432, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4110349645760023432, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4110349645760023432, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4110349645760023432, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4110349645760023432, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4110349645760023432, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4851122130801887994, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
       propertyPath: sprintBarWidthPercent
       value: 0.1
@@ -18921,24 +18885,8 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7032921686609207550, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: orthographic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7032921686609207550, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: field of view
-      value: 60.000004
-      objectReference: {fileID: 0}
-    - target: {fileID: 7032921686609207550, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: far clip plane
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7032921686609207550, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
       propertyPath: near clip plane
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7032921686609207550, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 183
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7195554319213927256, guid: 2c17ea83620e74e45bf582e87d5f4c9b, type: 3}
       propertyPath: m_Layer

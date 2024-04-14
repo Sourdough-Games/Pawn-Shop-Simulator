@@ -193,6 +193,10 @@ public class CarController : MonoBehaviour
         ot.enabled = Helper.IsWithinPlayerReach(transform);
     }
 
+    private void OnMouseExit() {
+        ot.enabled = false;
+    }
+
     private void OnMouseDown() {
         if(Singleton<PlayerController>.Instance.TryEnterVehicle(this)) {
             engineStartSound.Play();

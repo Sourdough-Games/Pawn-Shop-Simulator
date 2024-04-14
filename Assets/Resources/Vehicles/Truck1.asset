@@ -16,7 +16,7 @@ MonoBehaviour:
   VehicleName: Truck 1
   LocalizationKey: 
   maxSteeringAngle: 30
-  motorForce: 10000
+  motorForce: 15000
   brakeForce: 2500
   accelerationRate: 2575
   sitPosition:

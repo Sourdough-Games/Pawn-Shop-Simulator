@@ -10,6 +10,8 @@ public class GarageDoor : MonoBehaviour
 
     public bool isOpening = false;
 
+    public bool isStatic = false;
+
     void Awake() {
         animator = GetComponent<Animator>();
         unit = GetComponentInParent<StorageUnit>();
@@ -25,6 +27,7 @@ public class GarageDoor : MonoBehaviour
     }
 
     public void Update() {
+        if(isStatic) return;
         if (isOpening) {
             ot.OutlineColor = Color.white;
             return;

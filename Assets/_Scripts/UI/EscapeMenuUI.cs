@@ -3,11 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using UnityEditor.Localization.Editor;
 using UnityEngine;
 using UnityEngine.Localization.Components;
 using UnityEngine.Localization.Settings;
-using UnityEngine.SceneManagement;
 
 [Serializable]
 class LanguageSelectionData {

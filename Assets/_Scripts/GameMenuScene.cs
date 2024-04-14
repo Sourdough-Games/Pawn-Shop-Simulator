@@ -8,6 +8,8 @@ public class GameMenuScene : MonoBehaviour
 
     [SerializeField] private MainMenuUI menu;
 
+    [SerializeField] private Animator guyAnimator;
+
     void Start()
     {
         StartCoroutine(HandleShowMenu());
@@ -19,7 +21,11 @@ public class GameMenuScene : MonoBehaviour
         //unit.CanSpawn = true;
         unit.OpenUnit();
 
-        while(!unit.IsOpen) {
+        yield return new WaitForSeconds(.6f);
+
+        guyAnimator.Play("Dance");
+
+        while (!unit.IsOpen) {
             yield return new WaitForSeconds(.1f);
         }
 

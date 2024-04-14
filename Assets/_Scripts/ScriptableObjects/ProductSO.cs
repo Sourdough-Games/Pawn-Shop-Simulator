@@ -17,9 +17,9 @@ public class ProductSO : ScriptableObject
 
     public ProductSize productSize;
 
-    public ProductPositionData WorldSlotPositionData;
+    public GenericPositionData WorldSlotPositionData;
 
-    public ProductPositionData HandSlotPositionData;
+    public GenericPositionData HandSlotPositionData;
 
     public bool CanBeSlottedVertically = false;
 }

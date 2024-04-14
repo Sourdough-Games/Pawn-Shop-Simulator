@@ -30,6 +30,26 @@ MonoBehaviour:
     m_Localized: Size
     m_Metadata:
       m_Items: []
+  - m_Id: 1993942860414976
+    m_Localized: Price
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1995459155836928
+    m_Localized: Pause
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1995703746674688
+    m_Localized: Quit To Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1995972270211072
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1996163895377920
+    m_Localized: Configure Display
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

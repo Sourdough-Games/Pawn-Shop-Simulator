@@ -38,7 +38,7 @@ public class FirstPersonController : Singleton<FirstPersonController>
     // Internal Variables
     private float yaw = 0.0f;
     private float pitch = 0.0f;
-    private Image crosshairObject;
+    public Image crosshairObject;
 
     #region Camera Zoom Variables
 
@@ -394,6 +394,11 @@ public class FirstPersonController : Singleton<FirstPersonController>
     void FixedUpdate()
     {
         #region Movement
+
+        if (!Application.isFocused)
+        {
+            return;
+        }
 
         if (!frozen && playerCanMove)
         {

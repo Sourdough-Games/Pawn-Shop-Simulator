@@ -9,19 +9,19 @@ public class PurchaseStorageUnitUI : Modal
 {
     [SerializeField] private TextMeshProUGUI ownedStoragesText;
 
-
+    private float maxUnits = 3;
 
     public override void Draw() {
         StorageUnitsManager s = Singleton<StorageUnitsManager>.Instance;
 
-        ownedStoragesText.text = $"Owned Units: {s.StorageUnits.Where(u => u.IsOwned).Count()}/1";
+        ownedStoragesText.text = $"Owned Units: {s.StorageUnits.Where(u => u.IsOwned).Count()}/{maxUnits}";
     }
 
     public void PurchaseStorageUnit() {
         StorageUnitsManager s = Singleton<StorageUnitsManager>.Instance;
         PlayerController c = Singleton<PlayerController>.Instance;
 
-        if(c.ownedStorageUnits.Count > 0) {
+        if(c.ownedStorageUnits.Count > maxUnits) {
             Debug.LogError("Can only purchase 1 at a time");
             return;
         }

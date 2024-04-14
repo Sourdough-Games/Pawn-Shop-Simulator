@@ -90,6 +90,10 @@ public class Product : MonoBehaviour, IHoldable
                 inTruckBed = null;
             }
         }
+
+        if(!PlayerIsWithinDistance || Singleton<PlayerController>.Instance.inVehicle != null || Singleton<PlayerController>.Instance.openModal != null) {
+            highlight.enabled = false;
+        }
     }
 
     public void Drop()
@@ -132,7 +136,7 @@ public class Product : MonoBehaviour, IHoldable
     }
 
     void OnMouseOver() {
-        if (!PlayerIsWithinDistance && Singleton<PlayerController>.Instance.inVehicle != null && Singleton<PlayerController>.Instance.openModal != null) return;
+        if (!PlayerIsWithinDistance || Singleton<PlayerController>.Instance.inVehicle != null || Singleton<PlayerController>.Instance.openModal != null) return;
 
         ToggleHighlight(true);
     }

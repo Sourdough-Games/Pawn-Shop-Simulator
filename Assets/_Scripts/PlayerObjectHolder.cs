@@ -48,7 +48,7 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
     public bool TryPickupHoldable(IHoldable holdable)
     {
-        if (heldObject != null || holdable == null || Singleton<PlayerController>.Instance.openModal != null) return false;
+        if (heldObject != null || holdable == null || Singleton<PlayerController>.Instance.openModal != null || Singleton<PlayerController>.Instance.inVehicle != null) return false;
 
         holdable.ToggleWorldspaceUI(false);
         PickupHoldable(holdable);

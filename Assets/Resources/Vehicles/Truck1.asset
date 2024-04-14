@@ -18,7 +18,7 @@ MonoBehaviour:
   maxSteeringAngle: 30
   motorForce: 10000
   brakeForce: 2500
-  accelerationRate: 2000
+  accelerationRate: 2575
   sitPosition:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0}

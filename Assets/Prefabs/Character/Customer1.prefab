@@ -2014,7 +2014,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1968359681058289231}
   - component: {fileID: 531392936653899852}
-  - component: {fileID: 7642519843825643534}
+  - component: {fileID: 7164755620328691610}
   - component: {fileID: 1776142947293016553}
   - component: {fileID: 3807106350771830810}
   - component: {fileID: 3668402999946551002}
@@ -2056,25 +2056,26 @@ MonoBehaviour:
   CharacterClicked:
     m_PersistentCalls:
       m_Calls: []
-  ot: {fileID: 7642519843825643534}
---- !u!114 &7642519843825643534
+  ot: {fileID: 7164755620328691610}
+--- !u!114 &7164755620328691610
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5671799269701169738}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 88c6fe7e1484424459cb9eebe63c951b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 10
+  outlineWidth: 2.03
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  ShowAdditionalCanvases: []
 --- !u!136 &1776142947293016553
 CapsuleCollider:
   m_ObjectHideFlags: 0

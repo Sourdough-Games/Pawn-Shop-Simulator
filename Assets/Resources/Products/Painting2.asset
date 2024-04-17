@@ -19,9 +19,6 @@ MonoBehaviour:
   productType: 0
   productSize: 1
   WorldSlotPositionData:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: -90, z: 0}
-  HandSlotPositionData:
-    Position: {x: 0, y: 0.25, z: 0}
-    Rotation: {x: -90, y: 0, z: 0}
+    Position: {x: 0.25, y: 0, z: 0}
+    Rotation: {x: 90, y: -90, z: 0}
   CanBeSlottedVertically: 1

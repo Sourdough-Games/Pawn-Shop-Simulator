@@ -7,31 +7,14 @@ public class Product : MonoBehaviour, IHoldable
 {
     [SerializeField] private ProductWorldCanvas LookAtProductCanvas;
     [SerializeField] private ProductSO Data;
-    [SerializeField] private Collider denyDropCollider;
 
     public float currentlySetPrice = 0;
-
-    public float maxDistance {
-        get {
-            return Singleton<PlayerObjectHolder>.Instance.reachDistance;
-        }
-    }
 
     public ProductSO ProductData
     {
         get
         {
             return Data;
-        }
-    }
-
-    private Outline highlight;
-
-    private bool isHeld;
-
-    public bool IsHeld {
-        get {
-            return isHeld;
         }
     }
 
@@ -45,30 +28,18 @@ public class Product : MonoBehaviour, IHoldable
         }
     }
 
-    public bool isColliding = false;
+    public ProductWorldSlot onProductSlotTrigger;
 
     [SerializeField] private TruckBed inTruckBed;
 
-    bool PlayerIsWithinDistance
-    {
-        get {
-            float distance = Vector3.Distance(transform.position, Singleton<PlayerObjectHolder>.Instance.transform.position);
-
-            // Check if the distance is within the allowed range
-            return distance <= maxDistance;
-        }
-    }
+    private PlayerController controller;
 
     void Start() {
-        highlight = GetComponent<Outline>();
-        ToggleHighlight(false);
 
         FaceTarget ft = LookAtProductCanvas.gameObject.AddComponent<FaceTarget>();
-        ft.target = Singleton<PlayerObjectHolder>.Instance.transform;
+        ft.target = Singleton<PlayerController>.Instance.transform;
         LookAtProductCanvas.Hide();
         LookAtProductCanvas.Setup(this);
-
-        denyDropCollider.enabled = false;
     }
 
     void Update() {
@@ -90,84 +61,17 @@ public class Product : MonoBehaviour, IHoldable
                 inTruckBed = null;
             }
         }
-
-        if(!PlayerIsWithinDistance || Singleton<PlayerController>.Instance.inVehicle != null || Singleton<PlayerController>.Instance.openModal != null) {
-            highlight.enabled = false;
-        }
-    }
-
-    public void Drop()
-    {
-        isHeld = false;
-        denyDropCollider.enabled = false;
-    }
-
-    public void PickUp()
-    {
-        var c = Singleton<PlayerController>.Instance;
-
-        if (c.openModal == null && c.inVehicle == null && Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this)) {
-            isHeld = true;
-            denyDropCollider.enabled = true;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other) {
-        TruckBed truckBed;
-        if(other.TryGetComponent<TruckBed>(out truckBed)) {
-            inTruckBed = truckBed;
-        }
-    }
-
-    private void OnTriggerStay() {
-        if(isHeld) {
-            isColliding = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other) {
-        isColliding = false;
-    }
-
-    void OnMouseDown() {
-        if(!PlayerIsWithinDistance) return;
-
-        PickUp();
-    }
-
-    void OnMouseOver() {
-        if (!PlayerIsWithinDistance || Singleton<PlayerController>.Instance.inVehicle != null || Singleton<PlayerController>.Instance.openModal != null) return;
-
-        ToggleHighlight(true);
-    }
-
-    void OnMouseExit() {
-        ToggleHighlight(false);
     }
 
     public bool PlaceIntoWorldSlot(ProductWorldSlot slot)
     {
         if(slot.TryInsertProduct(this)) {
-            isHeld = false;
             isInSlot = true;
 
             return true;
         }
 
         return false;
-    }
-
-    public void ToggleHighlight(bool on)
-    {
-        if (on)
-        {
-            LookAtProductCanvas.Show();
-        }
-        else
-        {
-            LookAtProductCanvas.Hide();
-        }
-        highlight.enabled = on;
     }
 
     public ProductSize GetProductSize()
@@ -178,11 +82,6 @@ public class Product : MonoBehaviour, IHoldable
     public GenericPositionData GetSlotPositionData()
     {
         return Data.WorldSlotPositionData;
-    }
-
-    public GenericPositionData GetHandPositionData()
-    {
-        return Data.HandSlotPositionData;
     }
 
     public bool CanBeSlottedVertically()
@@ -197,7 +96,31 @@ public class Product : MonoBehaviour, IHoldable
 
     public bool CanBeDropped()
     {
-        Debug.LogError(isColliding);
-        return !isColliding;
+        return true;
+    }
+
+    private void OnTriggerStay(Collider other) {
+        if(onProductSlotTrigger != null) return;
+
+        ProductWorldSlot slot;
+        if (other.TryGetComponent<ProductWorldSlot>(out slot))
+        {
+            onProductSlotTrigger = slot;
+        }
+
+        TruckBed truckBed;
+        if (other.TryGetComponent<TruckBed>(out truckBed))
+        {
+            inTruckBed = truckBed;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        onProductSlotTrigger = null;
+        inTruckBed = null;
+    }
+
+    private void OnMouseDown() {
+        Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this);
     }
 }

@@ -189,14 +189,6 @@ public class CarController : MonoBehaviour
         t.rotation = rot;
     }
 
-    private void OnMouseOver() {
-        ot.enabled = Helper.IsWithinPlayerReach(transform);
-    }
-
-    private void OnMouseExit() {
-        ot.enabled = false;
-    }
-
     private void OnMouseDown() {
         if(Singleton<PlayerController>.Instance.TryEnterVehicle(this)) {
             engineStartSound.Play();

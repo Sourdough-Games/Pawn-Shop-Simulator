@@ -26,24 +26,11 @@ public class ProductPriceTag : MonoBehaviour
         }
 
         priceText.text = slot.currentlySetPrice == 0 ? "???" : Helper.ConvertToDollarAmount(slot.currentlySetPrice);
-
-        if(!Helper.IsWithinPlayerReach(transform)) {
-            ot.enabled = false;
-        }
-    }
-
-    public void OnMouseOver() {
-        if(Helper.IsWithinPlayerReach(transform) && slot.ProductInSlot != null) {
-            ot.enabled = true;
-        }
-    }
-
-    public void OnMouseExit() {
-        ot.enabled = false;
     }
 
     public void OnMouseDown() {
-        if(Helper.IsWithinPlayerReach(transform) && slot.ProductInSlot != null) {
+        Debug.LogError("OnMouseDown On Price Tag");
+        if(Singleton<PlayerController>.Instance.CanInteractWithTransform(transform) && slot.ProductInSlot != null) {
             Singleton<GameManager>.Instance.configureDisplaySlotUI.Setup(slot);
         }
     }

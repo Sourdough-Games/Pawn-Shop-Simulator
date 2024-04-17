@@ -51,6 +51,8 @@ public class GarageDoor : MonoBehaviour
     }
 
     public void OnMouseDown() {
+        if(isStatic) return;
+
         if(controller.CanInteractWithTransform(transform, additional_conditions: unit.IsOwned)) {
             if(unit.IsOpen) {
                 unit.CloseUnit();

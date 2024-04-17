@@ -25,10 +25,10 @@ public class GameMenuScene : MonoBehaviour
 
         guyAnimator.Play("Dance");
 
-        while (!unit.IsOpen) {
-            yield return new WaitForSeconds(.1f);
-        }
-
         menu.gameObject.SetActive(true);
+
+        // while (!unit.IsOpen) {
+        //     yield return new WaitForSeconds(.1f);
+        // }
     }
 }

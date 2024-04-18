@@ -36,12 +36,14 @@ public class GarageDoor : MonoBehaviour
         if(unit.IsOwned && !unit.IsOpen) {
             ot.OutlineColor = Color.green;
             ot.enabled = true;
-        } else {
-            ot.OutlineColor = Color.white;
+            return;
         }
+
+        ot.OutlineColor = Color.white;
     }
 
     public void IsOpen() {
+        ot.enabled = false;
         animator.SetBool("IsOpen", true);
     }
 

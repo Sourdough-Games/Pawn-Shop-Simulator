@@ -43,7 +43,9 @@ public class GarageDoor : MonoBehaviour
     }
 
     public void IsOpen() {
-        ot.enabled = false;
+        if(ot != null)
+            ot.enabled = false;
+            
         animator.SetBool("IsOpen", true);
     }
 

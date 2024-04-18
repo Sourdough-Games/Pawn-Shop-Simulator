@@ -72,7 +72,7 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     public bool TryEnterVehicle(CarController vehicle) {
-        if(inVehicle != null) return false;
+        if(inVehicle != null || !CanInteractWithTransform(vehicle.transform)) return false;
 
         EnterVehicle(vehicle);
         return true;

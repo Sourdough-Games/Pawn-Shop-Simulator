@@ -48,7 +48,7 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
     {
         if (heldObject != null)
         {
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.X) && !isRotating)
             {
                 DropHoldable();
                 return;

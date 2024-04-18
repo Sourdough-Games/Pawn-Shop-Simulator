@@ -21,7 +21,6 @@ public class FirstPersonController : Singleton<FirstPersonController>
     #region Camera Movement Variables
 
     public Camera playerCamera;
-    public Camera productCamera;
 
     public float fov = 60f;
     public bool invertCamera = false;
@@ -286,12 +285,10 @@ public class FirstPersonController : Singleton<FirstPersonController>
             // Lerps camera.fieldOfView to allow for a smooth transistion
             if(isZoomed)
             {
-                productCamera.fieldOfView = Mathf.Lerp(productCamera.fieldOfView, zoomFOV, zoomStepTime * Time.deltaTime);
                 playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, zoomFOV, zoomStepTime * Time.deltaTime);
             }
             else if(!isZoomed && !isSprinting)
             {
-                productCamera.fieldOfView = Mathf.Lerp(productCamera.fieldOfView, fov, zoomStepTime * Time.deltaTime);
                 playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, fov, zoomStepTime * Time.deltaTime);
             }
         }
@@ -496,6 +493,8 @@ public class FirstPersonController : Singleton<FirstPersonController>
         // Adds force to the player rigidbody to jump
         if (isGrounded)
         {
+            var power = jumpPower;
+
             rb.AddForce(0f, jumpPower, 0f, ForceMode.Impulse);
             isGrounded = false;
         }
@@ -600,7 +599,6 @@ public class FirstPersonController : Singleton<FirstPersonController>
         EditorGUILayout.Space();
 
         fpc.playerCamera = (Camera)EditorGUILayout.ObjectField(new GUIContent("Camera", "Camera attached to the controller."), fpc.playerCamera, typeof(Camera), true);
-        fpc.productCamera = (Camera)EditorGUILayout.ObjectField(new GUIContent("Product Camera", "Camera attached to the controller used for product"), fpc.productCamera, typeof(Camera), true);
         fpc.fov = EditorGUILayout.Slider(new GUIContent("Field of View", "The camera’s view angle. Changes the player camera directly."), fpc.fov, fpc.zoomFOV, 179f);
         fpc.cameraCanMove = EditorGUILayout.ToggleLeft(new GUIContent("Enable Camera Rotation", "Determines if the camera is allowed to move."), fpc.cameraCanMove);
 

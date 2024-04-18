@@ -25,6 +25,10 @@ PrefabInstance:
       value: 0.9855416
       objectReference: {fileID: 0}
     - target: {fileID: 1024766239943499163, guid: 482006a3d9d2e7645b11d7786ae1fc0d, type: 3}
+      propertyPath: m_Size.y
+      value: 1.2364941
+      objectReference: {fileID: 0}
+    - target: {fileID: 1024766239943499163, guid: 482006a3d9d2e7645b11d7786ae1fc0d, type: 3}
       propertyPath: m_Size.z
       value: 1.1721153
       objectReference: {fileID: 0}
@@ -34,11 +38,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1024766239943499163, guid: 482006a3d9d2e7645b11d7786ae1fc0d, type: 3}
       propertyPath: m_Center.y
-      value: -0.020782566
+      value: 0.5590785
       objectReference: {fileID: 0}
     - target: {fileID: 1024766239943499163, guid: 482006a3d9d2e7645b11d7786ae1fc0d, type: 3}
       propertyPath: m_Center.z
-      value: 0.00379223
+      value: 0.0037922265
       objectReference: {fileID: 0}
     - target: {fileID: 4787884574723151592, guid: 482006a3d9d2e7645b11d7786ae1fc0d, type: 3}
       propertyPath: m_LocalScale.x
@@ -90,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8416309256661812978, guid: 482006a3d9d2e7645b11d7786ae1fc0d, type: 3}
       propertyPath: m_Name
-      value: LargeProductSlot Variant
+      value: LargeProductSlot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

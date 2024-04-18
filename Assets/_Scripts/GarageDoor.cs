@@ -12,40 +12,40 @@ public class GarageDoor : MonoBehaviour
 
     public bool isStatic = false;
 
+    private PlayerController controller;
+
+    public StorageUnit Unit {
+        get {
+            return unit;
+        }
+    }
+
     void Awake() {
         animator = GetComponent<Animator>();
         unit = GetComponentInParent<StorageUnit>();
         ot = GetComponent<Outline>();
     }
 
-    bool PlayerIsWithinDistance
-    {
-        get
-        {
-            return Helper.IsWithinPlayerReach(transform, 1f);
-        }
+    void Start() {
+        controller = Singleton<PlayerController>.Instance;
     }
 
     public void Update() {
         if(isStatic) return;
-        if (isOpening) {
-            ot.OutlineColor = Color.white;
+
+        if(unit.IsOwned && !unit.IsOpen) {
+            ot.OutlineColor = Color.green;
+            ot.enabled = true;
             return;
         }
 
-        if(!isOpening && unit.IsOwned && !unit.IsOpen) {
-            ot.OutlineColor = Color.green;
-            ot.enabled = true;
-        } else {
-            ot.OutlineColor = Color.white;
-
-            if(!PlayerIsWithinDistance || !unit.IsOwned) {
-                ot.enabled = false;
-            }
-        }
+        ot.OutlineColor = Color.white;
     }
 
     public void IsOpen() {
+        if(ot != null)
+            ot.enabled = false;
+            
         animator.SetBool("IsOpen", true);
     }
 
@@ -55,28 +55,14 @@ public class GarageDoor : MonoBehaviour
     }
 
     public void OnMouseDown() {
-        
-        if(PlayerIsWithinDistance && unit.IsOwned) {
-            if (unit.IsOpen)
-            {
-                ot.enabled = false;
+        if(isStatic) return;
+
+        if(controller.CanInteractWithTransform(transform, additional_conditions: unit.IsOwned)) {
+            if(unit.IsOpen) {
                 unit.CloseUnit();
             } else {
-                Debug.LogError("Open Unit");
                 unit.OpenUnit();
-                ot.enabled = false;
             }
         }
-    }
-
-    public void OnMouseOver() {
-        if(PlayerIsWithinDistance) {
-            ot.enabled = true;
-        }
-    }
-
-    public void OnMouseExit()
-    {
-        ot.enabled = false;
     }
 }

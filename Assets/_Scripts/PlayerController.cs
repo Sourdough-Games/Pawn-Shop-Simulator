@@ -9,12 +9,35 @@ public class PlayerController : Singleton<PlayerController>
 
     [SerializeField] private float storageUnitProductSpawnMin = 1f;
     [SerializeField] private float storageUnitProductSpawnMax = 15f;
+    [SerializeField] private float reachDistance = 5f;
 
+    private Rigidbody rigidBody;
+    private FirstPersonController fpc;
+
+    private PlayerObjectHolder holder;
     public List<StorageUnit> ownedStorageUnits;
 
     public CarController inVehicle;
 
     public Modal openModal;
+
+    public float Reach {
+        get {
+            return reachDistance;
+        }
+    }
+
+    public FirstPersonController FPC {
+        get {
+            return fpc;
+        }
+    }
+
+    public Rigidbody RigidBody {
+        get {
+            return rigidBody;
+        }
+    }
 
     public float StorageUnitProductSpawnMin {
         get {
@@ -30,17 +53,32 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
+    public bool IsInteracting {
+        get {
+            return !(inVehicle == null && openModal == null && fpc.playerCanMove && holder.CurrentHoldable == null);
+        }
+    }
+
+    public bool CanInteractWithTransform(Transform transform, float additional_reach = 0f, bool additional_conditions = true) {
+        return additional_conditions && !IsInteracting && Helper.IsWithinPlayerReach(transform, reachDistance + additional_reach);
+    }
+
+    new void Awake() {
+        base.Awake();
+
+        fpc = GetComponent<FirstPersonController>();
+        rigidBody = GetComponent<Rigidbody>();
+        holder = GetComponent<PlayerObjectHolder>();
+    }
+
     public bool TryEnterVehicle(CarController vehicle) {
-        if(inVehicle != null) return false;
+        if(inVehicle != null || !CanInteractWithTransform(vehicle.transform)) return false;
 
         EnterVehicle(vehicle);
         return true;
     }
 
     private void EnterVehicle(CarController vehicle) {
-        
-        Singleton<PlayerObjectHolder>.Instance.enabled = false;
-
         inVehicle = vehicle;
         vehicle.BeingOperated = true;
 
@@ -78,8 +116,6 @@ public class PlayerController : Singleton<PlayerController>
 
         inVehicle.BeingOperated = false;
         inVehicle = null;
-
-        Singleton<PlayerObjectHolder>.Instance.enabled = true;
     }
 
     void Update() {

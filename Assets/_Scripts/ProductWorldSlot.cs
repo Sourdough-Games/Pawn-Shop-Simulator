@@ -8,6 +8,8 @@ using UnityEngine;
 public class ProductWorldSlot : MonoBehaviour
 {
 
+    [SerializeField] private Collider _collider;
+
     private Outline outline;
 
     [SerializeField] private AudioSource placeProductSound;
@@ -25,12 +27,6 @@ public class ProductWorldSlot : MonoBehaviour
         }
     }
 
-    public float maxDistance {
-        get {
-            return Singleton<PlayerObjectHolder>.Instance.reachDistance;
-        }
-    }
-
     [SerializeField] private ProductSize[] allowedSizes;
 
     [SerializeField] private bool IsVertical = false;
@@ -38,6 +34,17 @@ public class ProductWorldSlot : MonoBehaviour
     void Start()
     {
         outline = GetComponent<Outline>();
+        outline.enabled = false;
+    }
+
+    private void OnTriggerStay(Collider other) {
+        Product product;
+        if(other.TryGetComponent<Product>(out product) && product.onProductSlotTrigger == this) {
+            outline.enabled = true;
+        }  
+    }
+
+    private void OnTriggerExit() {
         outline.enabled = false;
     }
 
@@ -55,6 +62,9 @@ public class ProductWorldSlot : MonoBehaviour
             Singleton<NotificationSystem>.Instance.ShowMessage("ProductCantBeVertical");
             return false;
         }
+        if(!IsValidProductPlacement) {
+            return false;
+        }
 
         InsertProduct(product);
         return true;
@@ -63,15 +73,13 @@ public class ProductWorldSlot : MonoBehaviour
     public void InsertProduct(Product product) {
         ProductInSlot = product;
 
-        Singleton<PlayerObjectHolder>.Instance.TryDropHoldable(false);
+        Singleton<PlayerObjectHolder>.Instance.TryDropHoldable();
 
         Transform p_transform = product.transform;
 
         p_transform.SetParent(this.transform);
 
         Rigidbody rb = p_transform.GetComponent<Rigidbody>();
-        
-        //p_transform.GetComponentsInChildren<Collider>().All(c => c.enabled = false);
 
         rb.isKinematic = true;
         rb.useGravity = false;
@@ -80,6 +88,14 @@ public class ProductWorldSlot : MonoBehaviour
         p_transform.localRotation = Quaternion.Euler(product.ProductData.WorldSlotPositionData.Rotation);
 
         placeProductSound.Play();
+    }
+
+    internal void RemoveObject()
+    {
+        ProductInSlot.transform.SetParent(null);
+        
+        ProductInSlot = null;
+        currentlySetPrice = 0;
     }
 
     public bool IsValidProductPlacement {
@@ -97,53 +113,14 @@ public class ProductWorldSlot : MonoBehaviour
         }
     }
 
-    bool PlayerIsWithinDistance
-    {
-        get
-        {
-            float distance = Vector3.Distance(transform.position, Singleton<PlayerObjectHolder>.Instance.transform.position);
-            return distance <= maxDistance;
-        }
-    }
+    // void OnMouseDown()
+    // {
+    //     PlayerObjectHolder holder = Singleton<PlayerObjectHolder>.Instance;
 
-    void OnMouseOver()
-    {
-        if(!PlayerIsWithinDistance) return;
-
-        if(ProductInSlot == null) {
-            outline.enabled = true;
-        } else {
-            ProductInSlot.ToggleHighlight(true);
-        }
-    }
-
-    void OnMouseExit()
-    {
-        outline.enabled = false;
-
-        if(ProductInSlot != null) {
-            ProductInSlot.ToggleHighlight(false);
-        }
-    }
-
-    void OnMouseDown()
-    {
-        if (!PlayerIsWithinDistance) return;
-
-        PlayerObjectHolder holder = Singleton<PlayerObjectHolder>.Instance;
-
-        if (ProductInSlot == null && holder.CurrentHoldable != null) {
-            if(holder.CurrentHoldable.PlaceIntoWorldSlot(this)) {
-                ProductInSlot.ToggleHighlight(true);
-                outline.enabled = false;
-            }
-        } else {
-            if (holder.TryPickupHoldable(ProductInSlot))
-            {
-                currentlySetPrice = 0;
-                ProductInSlot.ToggleHighlight(false);
-                ProductInSlot = null;
-            }
-        }
-    }
+    //     if (ProductInSlot == null && holder.CurrentHoldable != null) {
+    //         if(holder.CurrentHoldable.PlaceIntoWorldSlot(this)) {
+    //             outline.enabled = false;
+    //         }
+    //     }
+    // }
 }

@@ -108,6 +108,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3428713935671773724, guid: c5cece06dd8b14f498df54e43b40356c, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 4382163615897736523, guid: c5cece06dd8b14f498df54e43b40356c, type: 3}
       propertyPath: m_Name
       value: LargeProductSlot Variant

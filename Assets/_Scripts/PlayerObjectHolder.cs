@@ -1,24 +1,30 @@
+using System;
 using System.Collections;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 {
-    [SerializeField] private FirstPersonController player;
+    private PlayerController controller;
     [SerializeField] private Transform holdPosition;
     [SerializeField] private ProductWorldCanvas screenSpaceCanvas;
 
     [SerializeField] private AudioSource pickupSound;
 
-    public float reachDistance;
-
-    private int holdLayer;
+    [SerializeField] private float pickupForce = 5f;
+    [SerializeField] private float rotationForce = 5f;
 
     private IHoldable heldObject;
+    private Rigidbody heldRB;
+    float heldRbOriginalMass;
 
     private Coroutine ReleaseZoomLockRoutine;
 
-    private Transform HeldTransform {
+    private bool isRotating;
+    private Vector3 lastMousePosition;
+
+    public Transform HeldTransform {
         get {
             return (heldObject as MonoBehaviour).transform;
         }
@@ -32,23 +38,104 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
     private void Start()
     {
-        holdLayer = LayerMask.NameToLayer("HoldLayer");
+        controller = GetComponent<PlayerController>();
     }
 
-    void Update() {
-        if(heldObject != null) {
-            if(Input.GetKeyDown(KeyCode.X)) {
+    private Coroutine rotatingCoroutine;
+
+
+    void Update()
+    {
+        if (heldObject != null)
+        {
+            if (Input.GetKeyDown(KeyCode.X) && !isRotating)
+            {
                 DropHoldable();
+                return;
             }
-            if(Input.GetKeyDown(KeyCode.Mouse1)) {
-                ThrowHoldable();
+
+            Product product;
+            if(Input.GetKeyDown(KeyCode.Mouse0) && HeldTransform.TryGetComponent<Product>(out product)) {
+                if(product.onProductSlotTrigger == null) return;
+
+                if(product.onProductSlotTrigger.TryInsertProduct(product)) {
+                    return;
+                }
+            }
+
+            if(isRotating = Input.GetMouseButton(1)) {
+                if(rotatingCoroutine == null) {
+                    rotatingCoroutine = StartCoroutine(HandleRotationUnfreeze());
+                }
+                lastMousePosition = Input.mousePosition;
             }
         }
     }
 
+    private IEnumerator HandleRotationUnfreeze()
+    {
+        controller.FPC.cameraCanMove = false;
+
+        while(isRotating) {
+            yield return new WaitForSeconds(.01f);
+        }
+        controller.FPC.cameraCanMove = true;
+
+        rotatingCoroutine = null;
+    }
+
+    void FixedUpdate() {
+        if(heldObject != null) {
+            if (isRotating)
+            {
+                RotateHoldPosition();
+            }
+
+            MoveObject();
+        }
+    }
+
+    void MoveObject()
+    {
+        // Calculate the center of mass position
+        Vector3 centerOfMass = heldRB.worldCenterOfMass;
+
+        // Calculate the distance between the center of mass and the hold position
+        float distance = Vector3.Distance(centerOfMass, holdPosition.position);
+
+        if (distance > 0.1f)
+        {
+            // Calculate the move direction based on the center of mass
+            Vector3 moveDirection = holdPosition.position - centerOfMass;
+
+            // Align the held object with the hold position
+            HeldTransform.rotation = holdPosition.rotation;
+
+            // Apply force to move the object towards the hold position
+            heldRB.AddForce(moveDirection.normalized * pickupForce * distance);
+        }
+    }
+    void RotateHoldPosition()
+    {
+        // Get mouse input
+        float mouseX = Input.GetAxis("Mouse X") * rotationForce * Time.fixedDeltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * rotationForce * Time.fixedDeltaTime;
+
+        Camera cam = controller.FPC.playerCamera;
+
+        Vector3 right = Vector3.Cross(cam.transform.up, holdPosition.position - cam.transform.position);
+        Vector3 up = Vector3.Cross(holdPosition.position - cam.transform.position, right);
+
+        holdPosition.rotation = Quaternion.AngleAxis(-mouseX, up) * holdPosition.rotation;
+        holdPosition.rotation = Quaternion.AngleAxis(mouseY, right) * holdPosition.rotation;
+
+        // Update the held object's rotation
+        HeldTransform.rotation = holdPosition.rotation;
+    }
+
     public bool TryPickupHoldable(IHoldable holdable)
     {
-        if (heldObject != null || holdable == null || Singleton<PlayerController>.Instance.openModal != null || Singleton<PlayerController>.Instance.inVehicle != null) return false;
+        if (heldObject != null || holdable == null || controller.IsInteracting) return false;
 
         holdable.ToggleWorldspaceUI(false);
         PickupHoldable(holdable);
@@ -62,58 +149,41 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
             ReleaseZoomLockRoutine = null;
         }
 
-        player.enableZoom = false;
-
+        controller.FPC.enableZoom = false;
         heldObject = holdable;
 
-        ProductWorldSlot currentSlot;
-        if (HeldTransform.parent != null && HeldTransform.parent.TryGetComponent<ProductWorldSlot>(out currentSlot)) {
-            currentSlot.ProductInSlot.ToggleHighlight(false);
-            currentSlot.ProductInSlot = null;
-            currentSlot.currentlySetPrice = 0;
-        }
+        HeldTransform.gameObject.layer = 9;
 
-        Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();
+        heldRB = HeldTransform.GetComponent<Rigidbody>();
 
-        //HeldTransform.GetComponentsInChildren<Collider>().All(c => c.enabled = false);
-        
-        rb.isKinematic = false;
-        rb.useGravity = false;
+        heldRbOriginalMass = heldRB.mass;
+        heldRB.mass = 1;
+        heldRB.isKinematic = false;
 
-        HeldTransform.SetParent(holdPosition);
+        heldRB.excludeLayers |= 1 << 8;
 
-        rb.constraints = RigidbodyConstraints.FreezeAll;
-        //Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
+        heldRB.useGravity = false;
+        heldRB.drag = 10;
+        heldRB.constraints = RigidbodyConstraints.FreezeRotation;
 
-        GenericPositionData HandPosition = holdable.GetHandPositionData();
-
-        HeldTransform.localPosition = HandPosition.Position;
-        HeldTransform.localRotation = Quaternion.Euler(HandPosition.Rotation);
+        holdPosition.rotation = HeldTransform.rotation;
 
         pickupSound.Play();
-
-        Helper.SetLayerRecursively(HeldTransform.gameObject, holdLayer);
 
         if(holdable is Product) {
             screenSpaceCanvas.Setup(holdable as Product);
             screenSpaceCanvas.Show();
+
+            ProductWorldSlot currentSlot;
+            if (HeldTransform.parent != null && HeldTransform.parent.TryGetComponent<ProductWorldSlot>(out currentSlot))
+            {
+                currentSlot.RemoveObject();
+            }
         }
     }
 
-    void ThrowHoldable(float force = 15f, float multiplier = 10)
-    {
-        Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();
-        if(TryDropHoldable()) {
-            //Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponent<Collider>(), true);
-
-            rb.AddForce(transform.forward * force * multiplier);
-
-            //Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
-        }
-    }
-
-    public bool TryDropHoldable(bool do_drop_validation = true) {
-        if (heldObject == null || do_drop_validation && !CanDropHeldObject())
+    public bool TryDropHoldable() {
+        if (heldObject == null || !CanDropHeldObject())
         {
             Debug.LogError("Cannot drop item");
             return false;
@@ -125,22 +195,19 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
     private void DropHoldable()
     {
-        Rigidbody rb = HeldTransform.GetComponent<Rigidbody>();
+        heldRB.excludeLayers &= ~(1 << 8);
 
-        //rb.isKinematic = false;
-        rb.useGravity = true;
+        heldRB.mass = heldRbOriginalMass;
 
-        HeldTransform.SetParent(null);
+        heldRB.useGravity = true;
+        heldRB.drag = 1;
+        heldRB.constraints = RigidbodyConstraints.None;
 
-        Helper.SetLayerRecursively(HeldTransform.gameObject, 0);
-
-        heldObject.Drop();
-
-        //HeldTransform.GetComponentsInChildren<Collider>().All(c => c.enabled = true);
-        rb.constraints = RigidbodyConstraints.None;
-        //Physics.IgnoreCollision(rb.GetComponentInChildren<Collider>(), GetComponent<Collider>(), false);
+        HeldTransform.gameObject.layer = 0;
+        //HeldTransform.parent = null;
 
         heldObject = null;
+        heldRB = null;
 
         ReleaseZoomLockRoutine = StartCoroutine(ReleaseZoomLock());
 
@@ -150,21 +217,10 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
     bool CanDropHeldObject()
     {
         return CurrentHoldable.CanBeDropped();
-        // // Define the direction in which to cast the ray (forward from the player)
-        // Vector3 forwardDirection = transform.forward;
-
-        // // Define the maximum distance for the raycast
-        // float maxDistance = 1.5f; // You can adjust this distance according to your needs
-
-        // // Perform the raycast
-        // RaycastHit hit;
-        // bool isHit = Physics.Raycast(transform.position, forwardDirection, out hit, maxDistance);
-
-        // return !isHit;
     }
 
     public IEnumerator ReleaseZoomLock() {
         yield return new WaitForSecondsRealtime(1f);
-        player.enableZoom = true;
+        controller.FPC.enableZoom = true;
     }
 }

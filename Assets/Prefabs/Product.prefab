@@ -1586,7 +1586,8 @@ GameObject:
   - component: {fileID: 4607166055706424424}
   - component: {fileID: 8263461800443030971}
   - component: {fileID: 4226867292563011318}
-  - component: {fileID: 1066740038763076332}
+  - component: {fileID: 6572952600612911335}
+  - component: {fileID: 3886483321280315380}
   m_Layer: 0
   m_Name: Product
   m_TagString: Untagged
@@ -1607,7 +1608,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7351524135155923972}
   - {fileID: 4408979855326205970}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1625,9 +1625,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LookAtProductCanvas: {fileID: 4412668651052796714}
   Data: {fileID: 11400000, guid: 007bfcf9f21841948b7d6eb1f9c68851, type: 2}
-  denyDropCollider: {fileID: 2431360523016925692}
   currentlySetPrice: 0
-  isColliding: 0
+  onProductSlotTrigger: {fileID: 0}
+  inTruckBed: {fileID: 0}
 --- !u!54 &4226867292563011318
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1655,7 +1655,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &1066740038763076332
+--- !u!114 &6572952600612911335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1664,15 +1664,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 5747390338793383481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Script: {fileID: 11500000, guid: 88c6fe7e1484424459cb9eebe63c951b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 0
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 8
+  outlineWidth: 10
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+  ShowAdditionalCanvases:
+  - {fileID: 8704484479176351590}
+--- !u!65 &3886483321280315380
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5747390338793383481}
+  m_Material: {fileID: 13400000, guid: 380e13ae25202794ab2d50467c31b34d, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.14382154, y: 0.28989196, z: 0.017180864}
+  m_Center: {x: 0.00021474063, y: -0.0004886389, z: -0.0011836756}
 --- !u!1 &6265820452653620378
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,56 +2221,3 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!1 &8357975761125617439
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7351524135155923972}
-  - component: {fileID: 2431360523016925692}
-  m_Layer: 0
-  m_Name: DenyDropTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7351524135155923972
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8357975761125617439}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4607166055706424424}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2431360523016925692
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8357975761125617439}
-  m_Material: {fileID: 13400000, guid: 380e13ae25202794ab2d50467c31b34d, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 768
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.5145125, y: 0.7791754, z: 0.5126231}
-  m_Center: {x: 0, y: 0, z: 0}

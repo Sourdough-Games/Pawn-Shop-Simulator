@@ -4,19 +4,11 @@ using UnityEngine;
 
 public interface IHoldable
 {
-    void PickUp();
-
-    void Drop();
-
     bool PlaceIntoWorldSlot(ProductWorldSlot slot);
-
-    void ToggleHighlight(bool on = true);
 
     ProductSize GetProductSize();
 
     GenericPositionData GetSlotPositionData();
-
-    GenericPositionData GetHandPositionData();
 
     bool CanBeSlottedVertically();
 

@@ -48,7 +48,9 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
     {
         if (heldObject != null)
         {
-            if (Input.GetKeyDown(KeyCode.X) && !isRotating)
+            float distanceToPlayer = Vector3.Distance(transform.position, HeldTransform.position);
+
+            if (distanceToPlayer > controller.Reach || Input.GetKeyDown(KeyCode.X) && !isRotating)
             {
                 DropHoldable();
                 return;

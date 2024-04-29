@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Notifications_es
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: es
+  m_SharedData: {fileID: 11400000, guid: c32802a520352e841b01f8edc7599120, type: 2}
+  m_Metadata:
+    m_Items:
+    - rid: 1911042788321394720
+  m_TableData:
+  - m_Id: 893909319680
+    m_Localized: Ya hay un producto en ese escaparate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1078618079232
+    m_Localized: "El producto no es del tama\xF1o adecuado para ese escaparate"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1157533908992
+    m_Localized: Este producto no se puede colocar en escaparates verticales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1312890929152
+    m_Localized: "Ya est\xE1s sujetando un objeto"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5903610376732672
+    m_Localized: Vendido {Product} por {Amount}
+    m_Metadata:
+      m_Items:
+      - rid: 1911042788321394720
+  - m_Id: 6263443332382720
+    m_Localized: Oferta declinada para {Product}
+    m_Metadata:
+      m_Items:
+      - rid: 1911042788321394720
+  - m_Id: 6263795163185152
+    m_Localized: "El cliente contraofert\xF3 su oferta"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7002598744113152
+    m_Localized: No se pueden recoger los productos reservados
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7012404171227136
+    m_Localized: "El cliente dej\xF3 de regatear por el producto"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7339510453354496
+    m_Localized: "Has alcanzado el n\xFAmero m\xE1ximo de unidades de almacenamiento
+      pose\xEDdas"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7339672508678144
+    m_Localized: No puedes permitirte eso
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 1911042788321394720
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00c065674df9140000c0e58a91401600

@@ -15,10 +15,11 @@ MonoBehaviour:
   prefab: {fileID: 5694947574275995188, guid: 2d008725d214a9844b3fcd1edae5a516, type: 3}
   ProductName: Painting
   LocalizationKey: Painting
-  baseCost: 125
+  baseCost: 160
   productType: 0
   productSize: 1
   WorldSlotPositionData:
     Position: {x: 0.25, y: 0, z: 0}
     Rotation: {x: 90, y: -90, z: 0}
   CanBeSlottedVertically: 1
+  sprite: {fileID: 21300000, guid: 67cb8be0c4b06d0458ca2a0ca2dd5500, type: 3}

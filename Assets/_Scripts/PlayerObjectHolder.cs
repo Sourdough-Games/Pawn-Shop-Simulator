@@ -1,3 +1,4 @@
+using System.Net.Http;
 using System;
 using System.Collections;
 using System.Linq;
@@ -71,6 +72,18 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
                 }
                 lastMousePosition = Input.mousePosition;
             }
+
+            float scrollWheelInput = Input.GetAxis("Mouse ScrollWheel");
+            if (scrollWheelInput != 0)
+            {
+                // Calculate the new local position after scrolling
+                float newPosition = holdPosition.localPosition.z + scrollWheelInput;
+
+                float clamp = Math.Clamp(newPosition, 1, controller.Reach - 1);
+
+                // Set the new position while maintaining the same direction from the player
+                holdPosition.localPosition = new Vector3(0, 0, clamp);
+            }
         }
     }
 
@@ -139,6 +152,19 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
     {
         if (heldObject != null || holdable == null || controller.IsInteracting) return false;
 
+        Product product;
+        ProductWorldSlot slot = null;
+
+        if ((holdable as MonoBehaviour).TryGetComponent<Product>(out product)) {
+            if (product.transform.parent != null && product.transform.parent.TryGetComponent<ProductWorldSlot>(out slot))
+            {
+                if(slot.IsReserved()) {
+                    Singleton<NotificationSystem>.Instance.ShowMessage("CantTakeFromReservedSlot");
+                    return false;
+                }
+            }
+        }
+
         holdable.ToggleWorldspaceUI(false);
         PickupHoldable(holdable);
         return true;
@@ -155,14 +181,13 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
         heldObject = holdable;
 
         HeldTransform.gameObject.layer = 9;
-
         heldRB = HeldTransform.GetComponent<Rigidbody>();
 
         heldRbOriginalMass = heldRB.mass;
         heldRB.mass = 1;
         heldRB.isKinematic = false;
 
-        heldRB.excludeLayers |= 1 << 8;
+        //heldRB.excludeLayers |= 1 << 8;
 
         heldRB.useGravity = false;
         heldRB.drag = 10;
@@ -182,6 +207,8 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
                 currentSlot.RemoveObject();
             }
         }
+
+        HeldTransform.SetParent(null);
     }
 
     public bool TryDropHoldable() {
@@ -197,7 +224,7 @@ public class PlayerObjectHolder : Singleton<PlayerObjectHolder>
 
     private void DropHoldable()
     {
-        heldRB.excludeLayers &= ~(1 << 8);
+        //heldRB.excludeLayers &= ~(1 << 8);
 
         heldRB.mass = heldRbOriginalMass;
 

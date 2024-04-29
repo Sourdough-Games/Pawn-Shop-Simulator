@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MAST_Holder
   - Sound Effect
+  - IconsCreationCamera
   layers:
   - Default
   - TransparentFX

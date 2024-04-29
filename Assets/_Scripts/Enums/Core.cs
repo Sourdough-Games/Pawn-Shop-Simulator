@@ -7,7 +7,8 @@ public enum ProductType
 {
     Art,
     Electronics,
-    Appliance
+    Appliance,
+    Equipment
 }
 public enum ProductQuality
 {
@@ -19,7 +20,7 @@ public enum ProductQuality
 }
 public enum ProductSize
 {
-    Tiny,
+    Small,
     Normal,
     Large
 }

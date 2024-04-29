@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 public class PlayerController : Singleton<PlayerController>
 {
     [SerializeField] private EscapeMenuUI escapeMenu;
+    [SerializeField] private CustomerBarterUI barterUI;
+    [SerializeField] private PriceLookupUI lookupUI;
 
     [SerializeField] private float storageUnitProductSpawnMin = 1f;
     [SerializeField] private float storageUnitProductSpawnMax = 15f;
@@ -71,6 +73,10 @@ public class PlayerController : Singleton<PlayerController>
         holder = GetComponent<PlayerObjectHolder>();
     }
 
+    public void StartBarterWithShopper(ShopperNPC shopper) {
+        barterUI.Setup(shopper);
+    }
+
     public bool TryEnterVehicle(CarController vehicle) {
         if(inVehicle != null || !CanInteractWithTransform(vehicle.transform)) return false;
 
@@ -80,15 +86,12 @@ public class PlayerController : Singleton<PlayerController>
 
     private void EnterVehicle(CarController vehicle) {
         inVehicle = vehicle;
-        vehicle.BeingOperated = true;
 
         transform.SetParent(vehicle.transform);
         transform.localPosition = vehicle.VehicleData.sitPosition.Position;
         transform.localRotation = Quaternion.Euler(vehicle.VehicleData.sitPosition.Rotation);
 
-        Singleton<FirstPersonController>.Instance.Freeze();
-
-        vehicle.Camera.gameObject.SetActive(true);
+        FPC.Freeze();
     }
 
     public bool TryExitVehicle() {
@@ -119,8 +122,12 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     void Update() {
-        if(openModal == null && Input.GetKeyDown(KeyCode.Escape)) {
-            escapeMenu.Open();
+        if(openModal == null) {
+            if(Input.GetKeyDown(KeyCode.Tab)) {
+                lookupUI.Open();
+            } else if(Input.GetKeyDown(KeyCode.Escape)) {
+                escapeMenu.Open();
+            }
         }
     }
 }

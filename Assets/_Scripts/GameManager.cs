@@ -7,6 +7,14 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] public ConfigureDisplaySlotUI configureDisplaySlotUI;
 
+    [SerializeField] private GenericModal welcomeModal;
+
+    public void Start() {
+        StartCoroutine(Helper.Wait(1f, () => {
+            welcomeModal.Open();
+        }));
+    }
+
     public void QuitGame() {
         Application.Quit();
     }

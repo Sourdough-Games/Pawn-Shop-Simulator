@@ -24,7 +24,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 288788692992
-    m_Key: SizeTiny
+    m_Key: SizeSmall
     m_Metadata:
       m_Items: []
   - m_Id: 313220513792
@@ -37,6 +37,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 11796516028416
     m_Key: TypeAppliance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6927004836675584
+    m_Key: TypeEquipment
     m_Metadata:
       m_Items: []
   m_Metadata:

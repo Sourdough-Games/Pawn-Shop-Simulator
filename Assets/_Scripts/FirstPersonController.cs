@@ -223,8 +223,13 @@ public class FirstPersonController : Singleton<FirstPersonController>
     {
         #region Camera
 
+        if (!Application.isFocused)
+        {
+            return;
+        }
+
         // Control camera movement
-        if(!frozen && cameraCanMove)
+        if (!frozen && cameraCanMove)
         {
             yaw = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * mouseSensitivity;
 

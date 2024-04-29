@@ -17,7 +17,7 @@ public abstract partial class Modal : MonoBehaviour, IModal
         var c = Singleton<FirstPersonController>.Instance;
 
         c.Unfreeze();
-        c.crosshairObject.gameObject.SetActive(true);
+        c.crosshair = true;
 
         Singleton<PlayerController>.Instance.openModal = null;
     }
@@ -32,7 +32,7 @@ public abstract partial class Modal : MonoBehaviour, IModal
         if(gameObject.activeSelf) {
             Draw();
 
-            if(Input.GetKeyDown(KeyCode.Escape)) {
+            if(Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab)) {
                 Close();
             }
         }
@@ -45,11 +45,24 @@ public abstract partial class Modal : MonoBehaviour, IModal
         Cursor.lockState = CursorLockMode.Confined;
         gameObject.SetActive(true);
 
+        StartCoroutine(UnlockButtonsAfterTimeout(.1f));
+
         var c = Singleton<FirstPersonController>.Instance;
 
         c.Freeze();
-        c.crosshairObject.gameObject.SetActive(false);
+        c.crosshair = false;
 
         Singleton<PlayerController>.Instance.openModal = this;
+    }
+
+    private IEnumerator UnlockButtonsAfterTimeout(float timeout) {
+        foreach(Button btn in GetComponentsInChildren<Button>()) {
+            btn.enabled = false;
+        }
+        yield return new WaitForSeconds(timeout);
+        foreach (Button btn in GetComponentsInChildren<Button>(true))
+        {
+            btn.enabled = true;
+        }
     }
 }

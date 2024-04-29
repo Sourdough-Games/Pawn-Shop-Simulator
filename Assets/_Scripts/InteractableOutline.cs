@@ -1,24 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using AYellowpaper;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InteractableOutline : Outline
 {
-    [SerializeField] private List<Canvas> ShowAdditionalCanvases;
+    [SerializeField] private List<Canvas> HoverCanvas;
+    [SerializeField] private UnityEvent clickEvent;
+    [SerializeField] private InterfaceReference<IInteractable> Interactable = new InterfaceReference<IInteractable>();
     private PlayerController controller;
 
     void Start() {
+        if(Interactable == null) {
+            Interactable.Value = GetComponent<IInteractable>();
+        }
         OnMouseExit();
     }
 
     private void OnMouseOver() {
         if(controller == null) {
-            Debug.LogWarning("Attempting to find PlayerController singleton...");
+            //Debug.LogWarning("Attempting to find PlayerController singleton...");
             controller = Singleton<PlayerController>.Instance;
             return;
         }
         
-        if(!controller.CanInteractWithTransform(transform) || !ComponentCheckPass()) {
+        if(!controller.CanInteractWithTransform(transform) || (Interactable.Value != null && !Interactable.Value.CanInteract())) {
             OnMouseExit();
             return;
         }
@@ -26,23 +33,28 @@ public class InteractableOutline : Outline
         if (gameObject.activeSelf) {
             enabled = true;
 
-            ShowAdditionalCanvases.ForEach(c => c.gameObject.SetActive(true));
+            HoverCanvas.ForEach(c => c.gameObject.SetActive(true));
         }
     }
 
-    private bool ComponentCheckPass() {
-        GarageDoor gDoor;
-        if (TryGetComponent<GarageDoor>(out gDoor) && !gDoor.Unit.IsOwned)
-        {
-            return false;
+    private void OnMouseDown() {
+        if(controller == null) {
+            controller = Singleton<PlayerController>.Instance;
+            return;
         }
 
-        return true;
+        if(!controller.CanInteractWithTransform(transform) || (Interactable.Value != null && !Interactable.Value.CanInteract())) {
+            return;
+        }
+
+        if(gameObject.activeSelf) {
+            clickEvent?.Invoke();
+        }
     }
 
     private void OnMouseExit() {
         enabled = false;
 
-        ShowAdditionalCanvases.ForEach(c => c.gameObject.SetActive(false));
+        HoverCanvas.ForEach(c => c.gameObject.SetActive(false));
     }
 }

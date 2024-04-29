@@ -15,13 +15,11 @@ MonoBehaviour:
   prefab: {fileID: 5720184459235649990, guid: 3f805cef9fced194189ee7e4fc118936, type: 3}
   ProductName: Washing Machine
   LocalizationKey: WashingMachine
-  baseCost: 766
+  baseCost: 450
   productType: 2
   productSize: 2
   WorldSlotPositionData:
     Position: {x: 0.3, y: 0.7, z: 0}
-    Rotation: {x: 0, y: 90, z: 0}
-  HandSlotPositionData:
-    Position: {x: 0, y: 0.25, z: -0.15}
-    Rotation: {x: 0, y: 180, z: 0}
+    Rotation: {x: 0, y: -90, z: 0}
   CanBeSlottedVertically: 0
+  sprite: {fileID: 21300000, guid: c980c97f46c1c7247a314cc6e798dd77, type: 3}

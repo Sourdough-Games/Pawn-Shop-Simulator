@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157cd422d13b8bb479076cfa4606a320, type: 3}
+  m_Name: Air Fryer
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5051227235336733596, guid: b3397705bfb515a438806e31f8f2b784, type: 3}
+  ProductName: Air Fryer
+  LocalizationKey: AirFryer
+  baseCost: 150
+  productType: 2
+  productSize: 1
+  WorldSlotPositionData:
+    Position: {x: 0, y: 0.14, z: 0}
+    Rotation: {x: 0, y: -90, z: 0}
+  CanBeSlottedVertically: 0
+  sprite: {fileID: 21300000, guid: ed8656fe24df5f240a50903071b4d3f6, type: 3}

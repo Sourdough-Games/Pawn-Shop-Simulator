@@ -1,12 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public static class Helper
 {
+    public static IEnumerator Wait(float time, Action a)
+    {
+        yield return new WaitForSeconds(time);
+        a();
+    }
     public static bool IsWithinPlayerReach(Transform obj, float reach) {
         PlayerObjectHolder holder = Singleton<PlayerObjectHolder>.Instance;
+
+        if(holder == null) return false;
 
         float distance = Vector3.Distance(obj.position, holder.transform.position);
         return distance <= reach;
@@ -22,6 +31,16 @@ public static class Helper
     }
     private static CultureInfo userCulture = CultureInfo.CurrentCulture;
 
+    public static string ConvertToDollarAmountNoCollapse(float number) {
+        return number.ToString("C", userCulture);
+    }
+
+    public static float ExponentialBias(float min, float max, float lambda)
+    {
+        float u = Random.value;
+        return Mathf.Lerp(min, max, 1 - Mathf.Pow(1 - u, lambda));
+    }
+
     public static string ConvertToDollarAmount(float number)
     {
         if (number < 999999)
@@ -36,7 +55,23 @@ public static class Helper
         {
             if (number >= thresholds[i])
             {
-                return (number / thresholds[i]).ToString("F1", userCulture) + suffixes[i];
+                string formattedValue = (number / thresholds[i]).ToString("F1", userCulture);
+                string suffix = suffixes[i];
+                string currencySymbol = userCulture.NumberFormat.CurrencySymbol;
+                string formattedAmount = formattedValue + suffix;
+
+                if (userCulture.NumberFormat.CurrencyPositivePattern == 2 || userCulture.NumberFormat.CurrencyPositivePattern == 3)
+                {
+                    // Currency symbol on the left
+                    formattedAmount = currencySymbol + formattedAmount;
+                }
+                else
+                {
+                    // Currency symbol on the right
+                    formattedAmount += currencySymbol;
+                }
+
+                return formattedAmount;
             }
         }
 

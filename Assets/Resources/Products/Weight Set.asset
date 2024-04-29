@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 157cd422d13b8bb479076cfa4606a320, type: 3}
+  m_Name: Weight Set
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 2668207587136785737, guid: a05813929d6c98c4e9ef875fee092aac, type: 3}
+  ProductName: Weight Set
+  LocalizationKey: WeightSet
+  baseCost: 300
+  productType: 3
+  productSize: 2
+  WorldSlotPositionData:
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0}
+  CanBeSlottedVertically: 0
+  sprite: {fileID: 21300000, guid: 123d77a71c86d624ab5eb295b5b30bae, type: 3}

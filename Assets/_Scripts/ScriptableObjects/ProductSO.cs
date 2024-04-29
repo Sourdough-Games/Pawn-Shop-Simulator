@@ -20,4 +20,6 @@ public class ProductSO : ScriptableObject
     public GenericPositionData WorldSlotPositionData;
 
     public bool CanBeSlottedVertically = false;
+
+    public Sprite sprite;
 }

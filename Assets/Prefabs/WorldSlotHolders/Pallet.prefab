@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2386604231097919581}
   - component: {fileID: 4984336115083047593}
   - component: {fileID: 773347037562266050}
-  - component: {fileID: 2239454048918348646}
+  - component: {fileID: 5474634071123018118}
   m_Layer: 0
   m_Name: Pallet_01_LOD0(Clone)
   m_TagString: Untagged
@@ -84,27 +84,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &2239454048918348646
-Animator:
-  serializedVersion: 5
+--- !u!64 &5474634071123018118
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2825044215772237786}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f1fcaa58d75448940b01ec8470ad5aab, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: f1fcaa58d75448940b01ec8470ad5aab, type: 3}
 --- !u!1 &3249672741330053861
 GameObject:
   m_ObjectHideFlags: 0
@@ -115,6 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8649967562104611250}
   - component: {fileID: 8492086451797612478}
+  - component: {fileID: 3929154874849969964}
   m_Layer: 0
   m_Name: Pallet
   m_TagString: Untagged
@@ -168,6 +170,25 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
+--- !u!114 &3929154874849969964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3249672741330053861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &3505034163038358795
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,8 +400,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0000004, y: 1.0000005, z: 1.0000004}
-  m_Center: {x: 0.00000023841856, y: -0.00000011920928, z: 0.0000009536743}
+  m_Size: {x: 20.6449, y: 4.3425193, z: 3.1368878}
+  m_Center: {x: 9.822448, y: 1.67126, z: -1.0684445}
 --- !u!1 &8477164038997930304
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +413,7 @@ GameObject:
   - component: {fileID: 3574014949519092591}
   - component: {fileID: 8218333192660723855}
   - component: {fileID: 8693661792912753982}
-  - component: {fileID: 7671001967927991860}
+  - component: {fileID: 8097171949427263365}
   m_Layer: 0
   m_Name: Pallet_01(Clone)
   m_TagString: Untagged
@@ -465,27 +486,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &7671001967927991860
-Animator:
-  serializedVersion: 5
+--- !u!64 &8097171949427263365
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8477164038997930304}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 2060557191e08db47a4b3f756c50a491, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 2060557191e08db47a4b3f756c50a491, type: 3}
 --- !u!1 &8874474469964299189
 GameObject:
   m_ObjectHideFlags: 0

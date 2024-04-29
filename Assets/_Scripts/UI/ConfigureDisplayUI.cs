@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ConfigureDisplaySlotUI : Modal
 {
     [SerializeField] private TMP_InputField priceInput;
+    [SerializeField] private Button setLastButton;
 
     public ProductWorldSlot productSlot;
+
+    public float lastSetPrice;
 
     public void Setup(ProductWorldSlot slot) {
         productSlot = slot;
@@ -21,8 +25,20 @@ public class ConfigureDisplaySlotUI : Modal
     }
 
     public void SetPrice() {
-        productSlot.currentlySetPrice = float.Parse(priceInput.text.Trim());
+        var new_price = float.Parse(priceInput.text.Trim());
+        if (new_price > 0)
+        {
+            lastSetPrice = new_price;
+        }
+
+        productSlot.currentlySetPrice = new_price;
         Close();
+    }
+
+    public void SetLastPrice()
+    {
+        priceInput.text = lastSetPrice.ToString();
+        SetPrice();
     }
 
     private void OnEndEdit(string value)
@@ -37,6 +53,10 @@ public class ConfigureDisplaySlotUI : Modal
 
     public override void Draw()
     {
-        
+        if(lastSetPrice == 0) {
+            setLastButton.gameObject.SetActive(false);
+        } else {
+            setLastButton.gameObject.SetActive(true);
+        }
     }
 }

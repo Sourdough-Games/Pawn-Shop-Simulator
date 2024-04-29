@@ -5,16 +5,21 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class ProductWorldSlot : MonoBehaviour
+public class ProductWorldSlot : MonoBehaviour, IInteractable
 {
 
     [SerializeField] private Collider _collider;
 
     private Outline outline;
 
+    private ProductPriceTag priceTag;
+
     [SerializeField] private AudioSource placeProductSound;
+    [SerializeField] public Transform customerStandPosition;
 
     public Product ProductInSlot;
+
+    public bool isSelectedByNPC = false;
 
     public float currentlySetPrice {
         get {
@@ -26,6 +31,12 @@ public class ProductWorldSlot : MonoBehaviour
             }
         }
     }
+    
+    public ProductPriceTag PriceTag {
+        get {
+            return priceTag;
+        }
+    }
 
     [SerializeField] private ProductSize[] allowedSizes;
 
@@ -35,6 +46,8 @@ public class ProductWorldSlot : MonoBehaviour
     {
         outline = GetComponent<Outline>();
         outline.enabled = false;
+
+        priceTag = GetComponentInChildren<ProductPriceTag>();
     }
 
     private void OnTriggerStay(Collider other) {
@@ -90,19 +103,40 @@ public class ProductWorldSlot : MonoBehaviour
         placeProductSound.Play();
     }
 
+    public void MarkReserved() {
+        PriceTag.reserved = true;
+    }
+
+    public bool IsReserved() {
+        return PriceTag.reserved;
+    }
+
+    internal void Unreserve()
+    {
+        PriceTag.reserved = false;
+    }
+
     internal void RemoveObject()
     {
+        if(ProductInSlot == null) return;
+        
         ProductInSlot.transform.SetParent(null);
         
         ProductInSlot = null;
         currentlySetPrice = 0;
+        priceTag.reserved = false;
+    }
+
+    public bool CanInteract()
+    {
+        return IsValidProductPlacement;
     }
 
     public bool IsValidProductPlacement {
         get {
             PlayerObjectHolder holder = Singleton<PlayerObjectHolder>.Instance;
 
-            if(holder == null || holder.CurrentHoldable == null) return false;
+            if(holder == null || holder.CurrentHoldable == null || IsReserved()) return false;
 
             if(!holder.CurrentHoldable.CanBeSlottedVertically() && IsVertical) {
                 return false;

@@ -15,8 +15,18 @@ public class PlayerMoneyManager : Singleton<PlayerMoneyManager>
         }
     }
 
+    public bool CanTakeMoney(float amount) {
+        if (walletAmount < amount)
+        {
+            Debug.LogError($"{walletAmount} < {amount}");
+            return false;
+        }
+        Debug.LogError($"{walletAmount} > {amount}");
+        return true;
+    }
+
     public bool TryTakeMoney(float amount) {
-        if(walletAmount < amount) {
+        if(!CanTakeMoney(amount)) {
             return false;
         }
 

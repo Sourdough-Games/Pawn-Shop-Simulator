@@ -1,14 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Product : MonoBehaviour, IHoldable
+public class Product : MonoBehaviour, IHoldable, IInteractable
 {
     [SerializeField] private ProductWorldCanvas LookAtProductCanvas;
     [SerializeField] private ProductSO Data;
 
     public float currentlySetPrice = 0;
+
+    private Rigidbody rb;
 
     public ProductSO ProductData
     {
@@ -18,19 +21,31 @@ public class Product : MonoBehaviour, IHoldable
         }
     }
 
-    private bool isInSlot;
+    public ProductWorldSlot currentSlot;
 
     public bool IsInSlot
     {
         get
         {
-            return isInSlot;
+            return currentSlot != null;
         }
     }
 
     public ProductWorldSlot onProductSlotTrigger;
 
     [SerializeField] private TruckBed inTruckBed;
+
+    public TruckBed TruckBed {
+        get {
+            return inTruckBed;
+        }
+        set {
+            if(value == null && inTruckBed != null) {
+                inTruckBed.TruckBedChanged -= HandleTruckBedChanged;
+            }
+            inTruckBed = value;
+        }
+    }
 
     private PlayerController controller;
 
@@ -40,34 +55,14 @@ public class Product : MonoBehaviour, IHoldable
         ft.target = Singleton<PlayerController>.Instance.transform;
         LookAtProductCanvas.Hide();
         LookAtProductCanvas.Setup(this);
-    }
 
-    void Update() {
-        if(inTruckBed != null) {
-
-            Rigidbody rb = GetComponent<Rigidbody>();
-
-            if(inTruckBed.IsTruckRunning) {
-                rb.isKinematic = true;
-                rb.excludeLayers =  LayerMask.GetMask("Vehicle", "Ignore Raycast");
-                transform.SetParent(inTruckBed.transform);
-            } else {
-                rb.isKinematic = false;
-                transform.SetParent(null);
-                rb.excludeLayers = LayerMask.GetMask();
-
-                inTruckBed.bedCollider.enabled = false;
-
-                inTruckBed = null;
-            }
-        }
+        rb = GetComponent<Rigidbody>();
     }
 
     public bool PlaceIntoWorldSlot(ProductWorldSlot slot)
     {
         if(slot.TryInsertProduct(this)) {
-            isInSlot = true;
-
+            currentSlot = slot;
             return true;
         }
 
@@ -109,10 +104,27 @@ public class Product : MonoBehaviour, IHoldable
         }
 
         TruckBed truckBed;
-        if (other.TryGetComponent<TruckBed>(out truckBed))
+        if (other.TryGetComponent<TruckBed>(out truckBed) && TruckBed == null)
         {
-            inTruckBed = truckBed;
+            truckBed.TruckBedChanged += HandleTruckBedChanged;
+            TruckBed = truckBed;
         }
+    }
+
+    private void HandleTruckBedChanged(bool is_locked)
+    {
+        if (is_locked) {
+            rb.isKinematic = true;
+            rb.excludeLayers = LayerMask.GetMask("Vehicle", "Ignore Raycast");
+            transform.SetParent(TruckBed.transform);
+            return;
+        }
+
+        rb.isKinematic = false;
+        transform.SetParent(null);
+        rb.excludeLayers = LayerMask.GetMask();
+
+        TruckBed = null;
     }
 
     private void OnTriggerExit(Collider other) {
@@ -121,6 +133,14 @@ public class Product : MonoBehaviour, IHoldable
     }
 
     private void OnMouseDown() {
+        if(onProductSlotTrigger != null) {
+            if(onProductSlotTrigger.IsReserved()) return;
+        }
         Singleton<PlayerObjectHolder>.Instance.TryPickupHoldable(this);
+    }
+
+    public bool CanInteract()
+    {
+        return true;
     }
 }

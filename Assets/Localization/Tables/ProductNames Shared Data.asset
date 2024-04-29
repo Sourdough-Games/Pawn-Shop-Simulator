@@ -27,6 +27,26 @@ MonoBehaviour:
     m_Key: WashingMachine
     m_Metadata:
       m_Items: []
+  - m_Id: 6902185676095488
+    m_Key: Microwave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6903580038905856
+    m_Key: Camera
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6906998358917120
+    m_Key: CoffeeMachine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6908346617937920
+    m_Key: WeightSet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6914996263305216
+    m_Key: AirFryer
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

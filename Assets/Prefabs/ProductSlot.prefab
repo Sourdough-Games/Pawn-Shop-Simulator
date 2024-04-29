@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2499121199553251431}
   - component: {fileID: 8489353540368809099}
   - component: {fileID: 8994991388362425105}
-  - component: {fileID: 6591673003036393892}
   - component: {fileID: 4725472412123990595}
   - component: {fileID: 905114186544009068}
+  - component: {fileID: 2507224962067211322}
   m_Layer: 12
   m_Name: ProductSlot
   m_TagString: Untagged
@@ -35,6 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3503213177164613730}
+  - {fileID: 5575173070652370660}
   - {fileID: 7624197551541309360}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52,7 +53,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _collider: {fileID: 8994991388362425105}
   placeProductSound: {fileID: 4725472412123990595}
+  customerStandPosition: {fileID: 5575173070652370660}
   ProductInSlot: {fileID: 0}
+  isSelectedByNPC: 0
   allowedSizes: 0000000001000000
   IsVertical: 0
 --- !u!65 &8994991388362425105
@@ -76,24 +79,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.65, y: 0.5454327, z: 0.65}
   m_Center: {x: 3.6060334e-14, y: 0.24110642, z: -0.000000043113108}
---- !u!114 &6591673003036393892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 441545009633138808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 10
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!82 &4725472412123990595
 AudioSource:
   m_ObjectHideFlags: 0
@@ -217,6 +202,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2507224962067211322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441545009633138808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88c6fe7e1484424459cb9eebe63c951b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+  HoverCanvas: []
+  clickEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1149812154830998891
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,6 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   priceText: {fileID: 9037215823118959405}
+  reserved: 0
 --- !u!114 &8729886992511111371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,7 +732,22 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
-  ShowAdditionalCanvases: []
+  HoverCanvas: []
+  clickEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8240733707611020824}
+        m_TargetAssemblyTypeName: ProductPriceTag, Assembly-CSharp
+        m_MethodName: OpenPriceTagUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!54 &7323851730720673850
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -752,6 +775,37 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &4993428426381579551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5575173070652370660}
+  m_Layer: 12
+  m_Name: CustomerStandPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5575173070652370660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4993428426381579551}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000010536705, y: -0.000000026807069, z: -0.000000010536709, w: 1}
+  m_LocalPosition: {x: 1.0199993, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2499121199553251431}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5406980087910320314
 GameObject:
   m_ObjectHideFlags: 0

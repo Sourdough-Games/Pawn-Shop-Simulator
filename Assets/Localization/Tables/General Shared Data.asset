@@ -31,6 +31,14 @@ MonoBehaviour:
     m_Key: ProductPriceHeader
     m_Metadata:
       m_Items: []
+  - m_Id: 1996163895377920
+    m_Key: ConfigureDisplayModalTitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5117982512889856
+    m_Key: CustomerBarterModalTitle
+    m_Metadata:
+      m_Items: []
   - m_Id: 1995459155836928
     m_Key: PauseModalTitle
     m_Metadata:
@@ -43,8 +51,36 @@ MonoBehaviour:
     m_Key: QuitButton
     m_Metadata:
       m_Items: []
-  - m_Id: 1996163895377920
-    m_Key: ConfigureDisplayModalTitle
+  - m_Id: 5233481221521408
+    m_Key: CustomerOfferHeader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5234763759992832
+    m_Key: AcceptOfferButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5234996103462912
+    m_Key: CounterOfferButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6299734786818048
+    m_Key: DeclineOfferButtonText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5484021931163648
+    m_Key: PriceLookupModalUI
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7343420052193280
+    m_Key: UnitsOwnedHeader
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7345896004370432
+    m_Key: UnitNumber
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7403364940103680
+    m_Key: PurchaseStorageUnitModalTitle
     m_Metadata:
       m_Items: []
   m_Metadata:

@@ -15,6 +15,7 @@ class LanguageSelectionData {
 
 public class EscapeMenuUI : Modal
 {
+    [SerializeField] private PurchaseStorageUnitUI purchaseStorageUI;
 
     [SerializeField] TMP_Dropdown languageDropdown;
 
@@ -54,6 +55,8 @@ public class EscapeMenuUI : Modal
             unit.CanSpawn = true;
             unit.CloseUnit();
         }
+
+        purchaseStorageUI.GenerateUI();
 
         Singleton<PlayerController>.Instance.ownedStorageUnits.Clear();
     }

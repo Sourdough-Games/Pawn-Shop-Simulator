@@ -20,8 +20,11 @@ public class NotificationSystem : Singleton<NotificationSystem>
         SystemMainTransform.SetActive(false);
     }
 
-    public void ShowMessage(string LocalizationKey, float seconds = 2f) {
+    public void ShowMessage(string LocalizationKey, float seconds = 2f, Dictionary<string, string> l_args = null) {
         localString.StringReference.TableEntryReference = LocalizationKey;
+        if(l_args != null) {
+            localString.StringReference.Arguments = new object[] { l_args };
+        }
 
         textObject.text = localString.StringReference.GetLocalizedString();
 

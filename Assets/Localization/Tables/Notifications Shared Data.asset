@@ -31,6 +31,34 @@ MonoBehaviour:
     m_Key: HolderAlreadyHolding
     m_Metadata:
       m_Items: []
+  - m_Id: 5903610376732672
+    m_Key: BarterAccepted
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6263443332382720
+    m_Key: BarterDeclined
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6263795163185152
+    m_Key: CustomerCountered
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7002598744113152
+    m_Key: CantTakeFromReservedSlot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7012404171227136
+    m_Key: CustomerBarterGaveUp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7339510453354496
+    m_Key: MaxStorageUnitsReached
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7339672508678144
+    m_Key: CannotAffordPurchase
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

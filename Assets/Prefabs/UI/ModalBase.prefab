@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2376477592198120972}
   - component: {fileID: 3160531164953192709}
   - component: {fileID: 1951634899580713361}
+  - component: {fileID: 3677464090916033506}
   m_Layer: 5
   m_Name: ModalBase
   m_TagString: Untagged
@@ -76,6 +77,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3677464090916033506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394546219727378288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971d94340c79af84d920b2d6c4a89b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CloseButton: {fileID: 7539499225991424850}
 --- !u!1 &4359102404142013683
 GameObject:
   m_ObjectHideFlags: 0

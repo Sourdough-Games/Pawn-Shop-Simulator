@@ -15,6 +15,6 @@ public class MainMenuUI : Modal
 
     public void LoadGame()
     {
-        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("MainSceneCity", LoadSceneMode.Single);
     }
 }

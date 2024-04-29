@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GarageDoor : MonoBehaviour
+public class GarageDoor : MonoBehaviour, IInteractable
 {
     private Animator animator;    
     private StorageUnit unit;
@@ -64,5 +64,10 @@ public class GarageDoor : MonoBehaviour
                 unit.OpenUnit();
             }
         }
+    }
+
+    public bool CanInteract()
+    {
+        return unit.IsOwned;
     }
 }

@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class CarController : MonoBehaviour
+public class CarController : MonoBehaviour, IInteractable
 {
+    public Action<bool> BeingOperatedChanged;
+
     private const string HORIZONTAL = "Horizontal";
     private const string VERTICAL = "Vertical";
 
@@ -16,7 +19,6 @@ public class CarController : MonoBehaviour
     private float currentSteerAngle;
 
     private bool isBeingOperated;
-    private float currentVelocity;
 
     private float currentMotorTorque = 0f;
 
@@ -26,6 +28,7 @@ public class CarController : MonoBehaviour
         }
         set {
             isBeingOperated = value;
+            BeingOperatedChanged?.Invoke(isBeingOperated);
         }
     }
 
@@ -193,6 +196,14 @@ public class CarController : MonoBehaviour
         if(Singleton<PlayerController>.Instance.TryEnterVehicle(this)) {
             engineStartSound.Play();
             engineIdleSound.Play();
+
+            BeingOperated = true;
+            Camera.gameObject.SetActive(true);
         }
+    }
+
+    public bool CanInteract()
+    {
+        return true;
     }
 }
